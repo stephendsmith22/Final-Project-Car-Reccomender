@@ -58,22 +58,6 @@ int main() {
     carModelHeading.setFillColor(sf::Color::Blue);
 
 
-    //==========Set up text, box, text, and inputs for min price==========
-    sf::RectangleShape minPriceRectangle = textBox();
-    int minPriceInput;
-
-    //Hold text for min price
-    sf::Text minPriceText;
-    minPriceText.setFont(font);
-    minPriceText.setCharacterSize(24);
-    minPriceText.setFillColor(sf::Color::Black);
-    minPriceText.setString("");
-
-    //Min price Heading
-    sf::Text minPriceHeading("Min Price", font, 36);
-    minPriceHeading.setFillColor(sf::Color::Blue);
-
-
     //==========Set up text, box, text, and inputs for max price==========
     sf::RectangleShape maxPriceRectangle = textBox();
     int maxPriceInput;
@@ -142,7 +126,6 @@ int main() {
 
     bool isCarMakeActive = false;
     bool isCarModelActive = false;
-    bool isMinPriceActive = false;
     bool isMaxPriceActive = false;
     bool isMaxMileageActive = false;
     bool isYearActive = false;
@@ -212,41 +195,6 @@ int main() {
             // Check if the user clicked outside of the car model text box to deactivate it
             if (!isSearchActive && event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && !carModelRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
                 isCarModelActive = false;
-            }
-
-
-            //==========Min Price==========
-            //User clicked in the min price text box
-            if (!isSearchActive && event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && minPriceRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
-                isMinPriceActive = true;
-            }
-            //User is typing in the min price text box
-            if (!isSearchActive && event.type == sf::Event::TextEntered && isMinPriceActive) {
-
-                if (event.text.unicode < 128 && event.text.unicode != '\b') { //Get input for min price
-
-                    minPriceText.setString(minPriceText.getString() + static_cast<char>(event.text.unicode));
-
-                    //Convert string to int
-                    std::stringstream ss(minPriceText.getString());
-                    ss >> minPriceInput;
-                }
-                else if (event.text.unicode == '\b') { // Handle backspace
-
-                    std::string str = minPriceText.getString();
-                    if (str.size() > 0) {
-                        str.pop_back();
-                        minPriceText.setString(str);
-
-                        //Convert string to int
-                        std::stringstream ss(minPriceText.getString());
-                        ss >> minPriceInput;
-                    }
-                }
-            }
-            // Check if the user clicked outside of the min price text box to deactivate it
-            if (!isSearchActive && event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && !minPriceRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
-                isMinPriceActive = false;
             }
 
 
@@ -403,22 +351,6 @@ int main() {
             window.draw(printCarModelRectangle);
             window.draw(printCarModelText);
 
-
-            //==========Print min price==========
-            sf::RectangleShape printMinPriceRectangle(sf::Vector2f(200, 50));
-            printMinPriceRectangle.setFillColor(sf::Color::White);
-
-            //text for Minimum price
-            sf::Text printMinPriceText("Minimum Price: " + to_string(minPriceInput), font, 24); //Doesn't print out ints correctly
-            printMinPriceText.setFillColor(sf::Color::Black);
-
-            //Draw min price output
-            printMinPriceRectangle.setPosition(50, 130);
-            printMinPriceText.setPosition(printMinPriceRectangle.getPosition().x + 10, printMinPriceRectangle.getPosition().y + 10);
-            window.draw(printMinPriceRectangle);
-            window.draw(printMinPriceText);
-
-
             //==========Print max price==========
             sf::RectangleShape printMaxPriceRectangle(sf::Vector2f(200, 50));
             printMaxPriceRectangle.setFillColor(sf::Color::White);
@@ -432,7 +364,6 @@ int main() {
             printMaxPriceText.setPosition(printMaxPriceRectangle.getPosition().x + 10, printMaxPriceRectangle.getPosition().y + 10);
             window.draw(printMaxPriceRectangle);
             window.draw(printMaxPriceText);
-
 
             //==========Print max mileage==========
             sf::RectangleShape printMaxMileageRectangle(sf::Vector2f(200, 50));
@@ -482,16 +413,8 @@ int main() {
             window.draw(carModelHeading);
             window.draw(carModelText);
 
-            //Draw inputs input for min price
-            minPriceRectangle.setPosition(50, 200);
-            minPriceHeading.setPosition(minPriceRectangle.getPosition().x, minPriceRectangle.getPosition().y - 50);
-            minPriceText.setPosition(minPriceRectangle.getPosition().x + 10, minPriceRectangle.getPosition().y + 10);
-            window.draw(minPriceRectangle);
-            window.draw(minPriceHeading);
-            window.draw(minPriceText);
-
             //Draw input for max price
-            maxPriceRectangle.setPosition(400, 200);
+            maxPriceRectangle.setPosition(50, 200);
             maxPriceHeading.setPosition(maxPriceRectangle.getPosition().x, maxPriceRectangle.getPosition().y - 50);
             maxPriceText.setPosition(maxPriceRectangle.getPosition().x + 10, maxPriceRectangle.getPosition().y + 10);
             window.draw(maxPriceRectangle);
@@ -499,7 +422,7 @@ int main() {
             window.draw(maxPriceText);
 
             //Draw input for max milage
-            maxMileageRectangle.setPosition(400, 350);
+            maxMileageRectangle.setPosition(400, 200);
             maxMileageHeading.setPosition(maxMileageRectangle.getPosition().x, maxMileageRectangle.getPosition().y - 50);
             maxMileageText.setPosition(maxMileageRectangle.getPosition().x + 10, maxMileageRectangle.getPosition().y + 10);
             window.draw(maxMileageRectangle);
@@ -535,8 +458,6 @@ int main() {
     std::cout << "Car Make = " << carMakeInput << std::endl;
 
     std::cout << "Car model = " << carModelInput << std::endl;
-
-    std::cout << "Min Price = " << minPriceInput << std::endl;
 
     if (maxPriceInput == 0) { //No Input given
         maxPriceInput = INT_MAX;
