@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <SFML/Graphics.hpp>
 #include <sstream>
 
@@ -17,7 +18,52 @@ sf::RectangleShape textBox() {
     return rectangle;
 }
 
+struct userInput {
+
+    int maxPrice;
+    int mileage;
+    int year;
+    std::string make;
+    std::string model;
+
+};
+
+void readFile() {
+
+    std::ifstream fin("C:/Users/elilo/source/repos/Final-Project-Car-Reccomender/Project 3_Car Finder/SimpleCars_csv.csv");
+    std::string line;
+    if (fin.is_open()) {
+
+        while (getline(fin, line, ',')) {
+            /*
+            std::istringstream iss(line);
+            std::vector<std::string> fields;
+            std::string field;
+
+            // Split the line into fields using comma as a delimiter
+            while (getline(iss, field, ',')) {
+                fields.push_back(field);
+            }
+
+            // Extract the desired columns (in this case, the first and third columns)
+            std::string col1 = fields[0];
+            std::string col3 = fields[2];
+
+            // Print the extracted columns
+            std::cout << "Column 1: " << col1 << std::endl;
+            std::cout << "Column 3: " << col3 << std::endl;
+            */
+
+            std::cout << line << std::endl;
+        }
+    }
+
+    fin.close();
+}
+
 int main() {
+
+    userInput userInput;
 
     sf::RenderWindow window(sf::VideoMode(800, 500), "Car determiner 3,000");
     //window.setFramerateLimit(60);
@@ -28,7 +74,6 @@ int main() {
 
     //==========Set Up text box, text, and inputs for car make==========
     sf::RectangleShape carMakeRectangle = textBox();
-    std::string carMakeInput;
 
     //Hold text for car make
     sf::Text carMakeText;
@@ -44,7 +89,6 @@ int main() {
 
     //==========Set up text, box, text, and inputs for car model==========
     sf::RectangleShape carModelRectangle = textBox();
-    std::string carModelInput;
 
     //Hold text for car model
     sf::Text carModelText;
@@ -60,7 +104,6 @@ int main() {
 
     //==========Set up text, box, text, and inputs for max price==========
     sf::RectangleShape maxPriceRectangle = textBox();
-    int maxPriceInput;
 
     //Hold text for max price
     sf::Text maxPriceText;
@@ -76,7 +119,6 @@ int main() {
 
     //==========Set up text, box, text, and inputs for max mileage==========
     sf::RectangleShape maxMileageRectangle = textBox();
-    int maxMileageInput;
 
     //Hold text for max mileage
     sf::Text maxMileageText;
@@ -92,7 +134,6 @@ int main() {
 
     //==========Set up text, box, text, and inputs for year==========
     sf::RectangleShape yearRectangle = textBox();
-    int yearInput;
 
     //Hold text for year
     sf::Text yearText;
@@ -151,7 +192,7 @@ int main() {
                 if (event.text.unicode < 128 && event.text.unicode != '\b') { //Get input for car make
 
                     carMakeText.setString(carMakeText.getString() + static_cast<char>(event.text.unicode));
-                    carMakeInput = carMakeText.getString();
+                    userInput.make = carMakeText.getString();
                 }
                 else if (event.text.unicode == '\b') { // Handle backspace
 
@@ -159,7 +200,7 @@ int main() {
                     if (str.size() > 0) {
                         str.pop_back();
                         carMakeText.setString(str);
-                        carMakeInput = carMakeText.getString();
+                        userInput.make = carMakeText.getString();
                     }
                 }
             }
@@ -180,7 +221,7 @@ int main() {
                 if (event.text.unicode < 128 && event.text.unicode != '\b') { //Get input for car model
 
                     carModelText.setString(carModelText.getString() + static_cast<char>(event.text.unicode));
-                    carModelInput = carModelText.getString();
+                    userInput.model = carModelText.getString();
                 }
                 else if (event.text.unicode == '\b') { // Handle backspace
 
@@ -188,7 +229,7 @@ int main() {
                     if (str.size() > 0) {
                         str.pop_back();
                         carModelText.setString(str);
-                        carModelInput = carModelText.getString();
+                        userInput.model = carModelText.getString();
                     }
                 }
             }
@@ -212,7 +253,7 @@ int main() {
 
                     //Convert string to int
                     std::stringstream ss(maxPriceText.getString());
-                    ss >> maxPriceInput;
+                    ss >> userInput.maxPrice;
 
                 }
                 else if (event.text.unicode == '\b') { // Handle backspace
@@ -224,7 +265,7 @@ int main() {
 
                         //Convert string to int
                         std::stringstream ss(maxPriceText.getString());
-                        ss >> maxPriceInput; //successful Conversion
+                        ss >> userInput.maxPrice; //successful Conversion
 
                     }
                 }
@@ -249,7 +290,7 @@ int main() {
 
                     //Convert string to int
                     std::stringstream ss(maxMileageText.getString());
-                    ss >> maxMileageInput;
+                    ss >> userInput.mileage;
 
                 }
                 else if (event.text.unicode == '\b') { // Handle backspace
@@ -261,7 +302,7 @@ int main() {
 
                         //Convert string to int
                         std::stringstream ss(maxMileageText.getString());
-                        ss >> maxMileageInput; //successful Conversion
+                        ss >> userInput.mileage; //successful Conversion
 
                     }
                 }
@@ -286,7 +327,7 @@ int main() {
 
                     //Convert string to int
                     std::stringstream ss(yearText.getString());
-                    ss >> yearInput;
+                    ss >> userInput.year;
                 }
                 else if (event.text.unicode == '\b') { // Handle backspace
 
@@ -297,7 +338,7 @@ int main() {
 
                         //Convert string to int
                         std::stringstream ss(yearText.getString());
-                        ss >> yearInput; //successful Conversion
+                        ss >> userInput.year; //successful Conversion
                     }
                 }
             }
@@ -327,7 +368,7 @@ int main() {
             printCarMakeRectangle.setFillColor(sf::Color::White);
 
             //text for car make
-            sf::Text printCarMakeText("Car Make: " + carMakeInput, font, 24);
+            sf::Text printCarMakeText("Car Make: " + userInput.make, font, 24);
             printCarMakeText.setFillColor(sf::Color::Black);
 
             //Draw car make output
@@ -342,7 +383,7 @@ int main() {
             printCarModelRectangle.setFillColor(sf::Color::White);
 
             //text for car model
-            sf::Text printCarModelText("Car Model: " + carModelInput, font, 24);
+            sf::Text printCarModelText("Car Model: " + userInput.model, font, 24);
             printCarModelText.setFillColor(sf::Color::Black);
 
             //Draw car model output
@@ -356,11 +397,11 @@ int main() {
             printMaxPriceRectangle.setFillColor(sf::Color::White);
 
             //text for max price
-            sf::Text printMaxPriceText("Maximum Price: " + to_string(maxPriceInput), font, 24); //Doesn't print out ints correctly
+            sf::Text printMaxPriceText("Maximum Price: " + to_string(userInput.maxPrice), font, 24); //Doesn't print out ints correctly
             printMaxPriceText.setFillColor(sf::Color::Black);
 
             //Draw max price output
-            printMaxPriceRectangle.setPosition(50, 180);
+            printMaxPriceRectangle.setPosition(50, 130);
             printMaxPriceText.setPosition(printMaxPriceRectangle.getPosition().x + 10, printMaxPriceRectangle.getPosition().y + 10);
             window.draw(printMaxPriceRectangle);
             window.draw(printMaxPriceText);
@@ -370,11 +411,11 @@ int main() {
             printMaxMileageRectangle.setFillColor(sf::Color::White);
 
             //text for max mileage
-            sf::Text printMaxMileageText("Maximum Mileage: " + to_string(maxMileageInput), font, 24); //Doesn't print out ints correctly
+            sf::Text printMaxMileageText("Maximum Mileage: " + to_string(userInput.mileage), font, 24); //Doesn't print out ints correctly
             printMaxMileageText.setFillColor(sf::Color::Black);
 
             //Draw max mileage output
-            printMaxMileageRectangle.setPosition(50, 230);
+            printMaxMileageRectangle.setPosition(50, 180);
             printMaxMileageText.setPosition(printMaxMileageRectangle.getPosition().x + 10, printMaxMileageRectangle.getPosition().y + 10);
             window.draw(printMaxMileageRectangle);
             window.draw(printMaxMileageText);
@@ -385,11 +426,11 @@ int main() {
             printYearRectangle.setFillColor(sf::Color::White);
 
             //text for year
-            sf::Text printYearText("Car Year: " + to_string(yearInput), font, 24); //Doesn't print out ints correctly
+            sf::Text printYearText("Car Year: " + to_string(userInput.year), font, 24); //Doesn't print out ints correctly
             printYearText.setFillColor(sf::Color::Black);
 
             //Draw year output
-            printYearRectangle.setPosition(50, 280);
+            printYearRectangle.setPosition(50, 230);
             printYearText.setPosition(printYearRectangle.getPosition().x + 10, printYearRectangle.getPosition().y + 10);
             window.draw(printYearRectangle);
             window.draw(printYearText);
@@ -452,21 +493,15 @@ int main() {
 
 
         window.display();
+
     }
 
+    std::cout << "Car Make = " << userInput.make << std::endl;
+    std::cout << "Car model = " << userInput.model << std::endl;
+    std::cout << "Max Price = " << userInput.maxPrice << std::endl;
+    std::cout << "Max Mileage = " << userInput.mileage << std::endl;
+    std::cout << "Car year = " << userInput.year << std::endl;
 
-    std::cout << "Car Make = " << carMakeInput << std::endl;
-
-    std::cout << "Car model = " << carModelInput << std::endl;
-
-    if (maxPriceInput == 0) { //No Input given
-        maxPriceInput = INT_MAX;
-    }
-    std::cout << "Max Price = " << maxPriceInput << std::endl;
-
-    std::cout << "Max Mileage = " << maxMileageInput << std::endl;
-
-    std::cout << "Car year = " << yearInput << std::endl;
 
 
     return 0;
