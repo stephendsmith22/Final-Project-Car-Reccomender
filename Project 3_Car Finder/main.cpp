@@ -19,7 +19,7 @@ sf::RectangleShape textBox() {
 
 int main() {
 
-    sf::RenderWindow window(sf::VideoMode(800, 500), "SFML window");
+    sf::RenderWindow window(sf::VideoMode(800, 500), "Car determiner 3,000");
     //window.setFramerateLimit(60);
 
     //Font
