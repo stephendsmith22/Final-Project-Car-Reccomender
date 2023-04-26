@@ -90,6 +90,22 @@ int main() {
     maxPriceHeading.setFillColor(sf::Color::Blue);
 
 
+    //==========Set up text, box, text, and inputs for max mileage==========
+    sf::RectangleShape maxMileageRectangle = textBox();
+    int maxMileageInput;
+
+    //Hold text for max mileage
+    sf::Text maxMileageText;
+    maxMileageText.setFont(font);
+    maxMileageText.setCharacterSize(24);
+    maxMileageText.setFillColor(sf::Color::Black);
+    maxMileageText.setString("");
+
+    //Max milage Heading
+    sf::Text maxMileageHeading("Max Mileage", font, 36);
+    maxMileageHeading.setFillColor(sf::Color::Blue);
+
+
     //==========Set up text, box, text, and inputs for year==========
     sf::RectangleShape yearRectangle = textBox();
     int yearInput;
@@ -128,6 +144,7 @@ int main() {
     bool isCarModelActive = false;
     bool isMinPriceActive = false;
     bool isMaxPriceActive = false;
+    bool isMaxMileageActive = false;
     bool isYearActive = false;
     bool isSearchActive = false;
     while (window.isOpen()) {
@@ -270,6 +287,43 @@ int main() {
             }
 
 
+            //==========Max Mileage==========
+            //User clicked in the max mileage text box
+            if (!isSearchActive && event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && maxMileageRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+                isMaxMileageActive = true;
+            }
+            //User is typing in the max mileage text box
+            if (!isSearchActive && event.type == sf::Event::TextEntered && isMaxMileageActive) {
+
+                if (event.text.unicode < 128 && event.text.unicode != '\b') { //Get input for max milage
+
+                    maxMileageText.setString(maxMileageText.getString() + static_cast<char>(event.text.unicode));
+
+                    //Convert string to int
+                    std::stringstream ss(maxMileageText.getString());
+                    ss >> maxMileageInput;
+
+                }
+                else if (event.text.unicode == '\b') { // Handle backspace
+
+                    std::string str = maxMileageText.getString();
+                    if (str.size() > 0) {
+                        str.pop_back();
+                        maxMileageText.setString(str);
+
+                        //Convert string to int
+                        std::stringstream ss(maxMileageText.getString());
+                        ss >> maxMileageInput; //successful Conversion
+
+                    }
+                }
+            }
+            // Check if the user clicked outside of the max milage text box to deactivate it
+            if (!isSearchActive && event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && !maxMileageRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+                isMaxMileageActive = false;
+            }
+
+
             //==========Year==========
             //User clicked in the year text box
             if (!isSearchActive && event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && yearRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
@@ -380,6 +434,21 @@ int main() {
             window.draw(printMaxPriceText);
 
 
+            //==========Print max mileage==========
+            sf::RectangleShape printMaxMileageRectangle(sf::Vector2f(200, 50));
+            printMaxMileageRectangle.setFillColor(sf::Color::White);
+
+            //text for max mileage
+            sf::Text printMaxMileageText("Maximum Mileage: " + to_string(maxMileageInput), font, 24); //Doesn't print out ints correctly
+            printMaxMileageText.setFillColor(sf::Color::Black);
+
+            //Draw max mileage output
+            printMaxMileageRectangle.setPosition(50, 230);
+            printMaxMileageText.setPosition(printMaxMileageRectangle.getPosition().x + 10, printMaxMileageRectangle.getPosition().y + 10);
+            window.draw(printMaxMileageRectangle);
+            window.draw(printMaxMileageText);
+
+
             //==========Print year==========
             sf::RectangleShape printYearRectangle(sf::Vector2f(200, 50));
             printYearRectangle.setFillColor(sf::Color::White);
@@ -389,12 +458,13 @@ int main() {
             printYearText.setFillColor(sf::Color::Black);
 
             //Draw year output
-            printYearRectangle.setPosition(50, 230);
+            printYearRectangle.setPosition(50, 280);
             printYearText.setPosition(printYearRectangle.getPosition().x + 10, printYearRectangle.getPosition().y + 10);
             window.draw(printYearRectangle);
             window.draw(printYearText);
 
-        } else { //Search is not clicked, keep getting inputs
+        }
+        else { //Search is not clicked, keep getting inputs
 
             //Draw input for make of car
             carMakeRectangle.setPosition(50, 50);
@@ -428,6 +498,14 @@ int main() {
             window.draw(maxPriceHeading);
             window.draw(maxPriceText);
 
+            //Draw input for max milage
+            maxMileageRectangle.setPosition(400, 350);
+            maxMileageHeading.setPosition(maxMileageRectangle.getPosition().x, maxMileageRectangle.getPosition().y - 50);
+            maxMileageText.setPosition(maxMileageRectangle.getPosition().x + 10, maxMileageRectangle.getPosition().y + 10);
+            window.draw(maxMileageRectangle);
+            window.draw(maxMileageHeading);
+            window.draw(maxMileageText);
+
             //Draw input for year
             yearRectangle.setPosition(50, 350);
             yearHeading.setPosition(yearRectangle.getPosition().x, yearRectangle.getPosition().y - 50);
@@ -442,7 +520,7 @@ int main() {
             searchButtonText.setPosition(searchButtonRectangle.getPosition().x + 10, searchButtonRectangle.getPosition().y + 10);
             window.draw(searchButtonRectangle);
             window.draw(searchButtonText);
-            
+
 
         }
 
@@ -464,6 +542,8 @@ int main() {
         maxPriceInput = INT_MAX;
     }
     std::cout << "Max Price = " << maxPriceInput << std::endl;
+
+    std::cout << "Max Mileage = " << maxMileageInput << std::endl;
 
     std::cout << "Car year = " << yearInput << std::endl;
 
