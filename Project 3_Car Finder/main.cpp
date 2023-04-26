@@ -42,20 +42,20 @@ int main() {
     makeHeading.setFillColor(sf::Color::Blue);
 
 
-    //==========Set up text, box, text, and inputs for zip code==========
-    sf::RectangleShape zipCodeRectangle = textBox();
-    int zipCodeInput;
+    //==========Set up text, box, text, and inputs for car model==========
+    sf::RectangleShape carModelRectangle = textBox();
+    std::string carModelInput;
 
-    //Hold text for zip code
-    sf::Text zipCodeText;
-    zipCodeText.setFont(font);
-    zipCodeText.setCharacterSize(24);
-    zipCodeText.setFillColor(sf::Color::Black);
-    zipCodeText.setString("");
+    //Hold text for car model
+    sf::Text carModelText;
+    carModelText.setFont(font);
+    carModelText.setCharacterSize(24);
+    carModelText.setFillColor(sf::Color::Black);
+    carModelText.setString("");
 
-    //Zip code Heading
-    sf::Text zipCodeHeading("Zip Code*", font, 36);
-    zipCodeHeading.setFillColor(sf::Color::Blue);
+    //Car model Heading
+    sf::Text carModelHeading("Car Model", font, 36);
+    carModelHeading.setFillColor(sf::Color::Blue);
 
 
     //==========Set up text, box, text, and inputs for min price==========
@@ -90,41 +90,25 @@ int main() {
     maxPriceHeading.setFillColor(sf::Color::Blue);
 
 
-    //==========Set up text, box, text, and inputs for body type==========
-    sf::RectangleShape bodyTypeRectangle = textBox();
-    std::string bodyTypeInput;
+    //==========Set up text, box, text, and inputs for year==========
+    sf::RectangleShape yearRectangle = textBox();
+    int yearInput;
 
-    //Hold text for body type
-    sf::Text bodyTypeText;
-    bodyTypeText.setFont(font);
-    bodyTypeText.setCharacterSize(24);
-    bodyTypeText.setFillColor(sf::Color::Black);
-    bodyTypeText.setString("");
+    //Hold text for year
+    sf::Text yearText;
+    yearText.setFont(font);
+    yearText.setCharacterSize(24);
+    yearText.setFillColor(sf::Color::Black);
+    yearText.setString("");
 
-    //Body type Heading
-    sf::Text bodyTypeHeading("Body Type", font, 36);
-    bodyTypeHeading.setFillColor(sf::Color::Blue);
+    //Year Heading
+    sf::Text yearHeading("Car Year", font, 36);
+    yearHeading.setFillColor(sf::Color::Blue);
 
 
     //==========Required Text==========
     sf::Text requiredHeader("* = required field", font, 12);
     requiredHeader.setFillColor(sf::Color::Red);
-
-
-    //==========Set up text, box, text, and inputs for distance away==========
-    sf::RectangleShape distanceRectangle = textBox();
-    int distanceInput;
-
-    //Hold text for distance
-    sf::Text distanceText;
-    distanceText.setFont(font);
-    distanceText.setCharacterSize(24);
-    distanceText.setFillColor(sf::Color::Black);
-    distanceText.setString("");
-
-    //Distance Heading
-    sf::Text distanceHeading("Distance Away (Miles)", font, 36);
-    distanceHeading.setFillColor(sf::Color::Blue);
 
 
     //==========Search Button==========
@@ -141,11 +125,10 @@ int main() {
 
 
     bool isCarMakeActive = false;
-    bool isZipCodeActive = false;
+    bool isCarModelActive = false;
     bool isMinPriceActive = false;
     bool isMaxPriceActive = false;
-    bool isBodyTypeActive = false;
-    bool isDistanceActive = false;
+    bool isYearActive = false;
     bool isSearchActive = false;
     while (window.isOpen()) {
 
@@ -186,38 +169,32 @@ int main() {
             }
 
 
-            //==========Zip code==========
-            //User clicked in the zip code text box
-            if (!isSearchActive && event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && zipCodeRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
-                isZipCodeActive = true;
+            //==========Car Model==========
+            //User clicked in the car model text box
+            if (!isSearchActive && event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && carModelRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+                isCarModelActive = true;
             }
-            //User is typing in the zip code text box
-            if (!isSearchActive && event.type == sf::Event::TextEntered && isZipCodeActive) {
+            //User is typing in the car model text box
+            if (!isSearchActive && event.type == sf::Event::TextEntered && isCarModelActive) {
 
-                if (event.text.unicode < 128 && event.text.unicode != '\b') { //Get input for zip code
+                if (event.text.unicode < 128 && event.text.unicode != '\b') { //Get input for car model
 
-                    zipCodeText.setString(zipCodeText.getString() + static_cast<char>(event.text.unicode));
-
-                    //Convert string to int
-                    std::stringstream ss(zipCodeText.getString());
-                    ss >> zipCodeInput;
+                    carModelText.setString(carModelText.getString() + static_cast<char>(event.text.unicode));
+                    carModelInput = carModelText.getString();
                 }
                 else if (event.text.unicode == '\b') { // Handle backspace
 
-                    std::string str = zipCodeText.getString();
+                    std::string str = carModelText.getString();
                     if (str.size() > 0) {
                         str.pop_back();
-                        zipCodeText.setString(str);
-
-                        //Convert string to int
-                        std::stringstream ss(zipCodeText.getString());
-                        ss >> zipCodeInput;
+                        carModelText.setString(str);
+                        carModelInput = carModelText.getString();
                     }
                 }
             }
-            // Check if the user clicked outside of the zip code text box to deactivate it
-            if (!isSearchActive && event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && !zipCodeRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
-                isZipCodeActive = false;
+            // Check if the user clicked outside of the car model text box to deactivate it
+            if (!isSearchActive && event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && !carModelRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+                isCarModelActive = false;
             }
 
 
@@ -229,7 +206,7 @@ int main() {
             //User is typing in the min price text box
             if (!isSearchActive && event.type == sf::Event::TextEntered && isMinPriceActive) {
 
-                if (event.text.unicode < 128 && event.text.unicode != '\b') { //Get input for zip code
+                if (event.text.unicode < 128 && event.text.unicode != '\b') { //Get input for min price
 
                     minPriceText.setString(minPriceText.getString() + static_cast<char>(event.text.unicode));
 
@@ -264,7 +241,7 @@ int main() {
             //User is typing in the max price text box
             if (!isSearchActive && event.type == sf::Event::TextEntered && isMaxPriceActive) {
 
-                if (event.text.unicode < 128 && event.text.unicode != '\b') { //Get input for zip code
+                if (event.text.unicode < 128 && event.text.unicode != '\b') { //Get input for max price
 
                     maxPriceText.setString(maxPriceText.getString() + static_cast<char>(event.text.unicode));
 
@@ -293,68 +270,38 @@ int main() {
             }
 
 
-            //==========Body Type==========
-            //User clicked in the body type text box
-            if (!isSearchActive && event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && bodyTypeRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
-                isBodyTypeActive = true;
+            //==========Year==========
+            //User clicked in the year text box
+            if (!isSearchActive && event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && yearRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+                isYearActive = true;
             }
-            //User is typing in the body type text box
-            if (!isSearchActive && event.type == sf::Event::TextEntered && isBodyTypeActive) {
+            //User is typing in the year text box
+            if (!isSearchActive && event.type == sf::Event::TextEntered && isYearActive) {
 
-                if (event.text.unicode < 128 && event.text.unicode != '\b') { //Get input for zip code
+                if (event.text.unicode < 128 && event.text.unicode != '\b') { //Get input for year
 
-                    bodyTypeText.setString(bodyTypeText.getString() + static_cast<char>(event.text.unicode));
-
-                    bodyTypeInput = bodyTypeText.getString();
-                }
-                else if (event.text.unicode == '\b') { // Handle backspace
-
-                    std::string str = bodyTypeText.getString();
-                    if (str.size() > 0) {
-                        str.pop_back();
-                        bodyTypeText.setString(str);
-                        bodyTypeInput = bodyTypeText.getString();
-                    }
-                }
-            }
-            // Check if the user clicked outside of the body type text box to deactivate it
-            if (!isSearchActive && event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && !bodyTypeRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
-                isBodyTypeActive = false;
-            }
-
-
-            //==========Distance away==========
-            //User clicked in the distance text box
-            if (!isSearchActive && event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && distanceRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
-                isDistanceActive = true;
-            }
-            //User is typing in the min price text box
-            if (!isSearchActive && event.type == sf::Event::TextEntered && isDistanceActive) {
-
-                if (event.text.unicode < 128 && event.text.unicode != '\b') { //Get input for zip code
-
-                    distanceText.setString(distanceText.getString() + static_cast<char>(event.text.unicode));
+                    yearText.setString(yearText.getString() + static_cast<char>(event.text.unicode));
 
                     //Convert string to int
-                    std::stringstream ss(distanceText.getString());
-                    ss >> distanceInput;
+                    std::stringstream ss(yearText.getString());
+                    ss >> yearInput;
                 }
                 else if (event.text.unicode == '\b') { // Handle backspace
 
-                    std::string str = distanceText.getString();
+                    std::string str = yearText.getString();
                     if (str.size() > 0) {
                         str.pop_back();
-                        distanceText.setString(str);
+                        yearText.setString(str);
 
                         //Convert string to int
-                        std::stringstream ss(distanceText.getString());
-                        ss >> distanceInput;
+                        std::stringstream ss(yearText.getString());
+                        ss >> yearInput; //successful Conversion
                     }
                 }
             }
-            // Check if the user clicked outside of the body type text box to deactivate it
-            if (!isSearchActive && event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && !distanceRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
-                isDistanceActive = false;
+            // Check if the user clicked outside of the year text box to deactivate it
+            if (!isSearchActive && event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && !yearRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+                isYearActive = false;
             }
 
 
@@ -364,6 +311,7 @@ int main() {
                 isSearchActive = true;
             }
         }
+
 
         window.clear(sf::Color::White);
 
@@ -387,19 +335,19 @@ int main() {
             window.draw(printCarMakeText);
 
 
-            //==========Print zip code==========
-            sf::RectangleShape printZipCodeRectangle(sf::Vector2f(200, 50));
-            printZipCodeRectangle.setFillColor(sf::Color::White);
+            //==========Print car model==========
+            sf::RectangleShape printCarModelRectangle(sf::Vector2f(200, 50));
+            printCarModelRectangle.setFillColor(sf::Color::White);
 
-            //text for car make
-            sf::Text printZipCodeText("Zip Code: " + to_string(zipCodeInput), font, 24); //Doesn't print out ints correctly
-            printZipCodeText.setFillColor(sf::Color::Black);
+            //text for car model
+            sf::Text printCarModelText("Car Model: " + carModelInput, font, 24);
+            printCarModelText.setFillColor(sf::Color::Black);
 
-            //Draw car make output
-            printZipCodeRectangle.setPosition(50, 80);
-            printZipCodeText.setPosition(printZipCodeRectangle.getPosition().x + 10, printZipCodeRectangle.getPosition().y + 10);
-            window.draw(printZipCodeRectangle);
-            window.draw(printZipCodeText);
+            //Draw car model output
+            printCarModelRectangle.setPosition(50, 80);
+            printCarModelText.setPosition(printCarModelRectangle.getPosition().x + 10, printCarModelRectangle.getPosition().y + 10);
+            window.draw(printCarModelRectangle);
+            window.draw(printCarModelText);
 
 
             //==========Print min price==========
@@ -432,38 +380,21 @@ int main() {
             window.draw(printMaxPriceText);
 
 
-            //==========Print body type==========
-            sf::RectangleShape printBodyTypeRectangle(sf::Vector2f(200, 50));
-            printBodyTypeRectangle.setFillColor(sf::Color::White);
+            //==========Print year==========
+            sf::RectangleShape printYearRectangle(sf::Vector2f(200, 50));
+            printYearRectangle.setFillColor(sf::Color::White);
 
-            //text for body type
-            sf::Text printBodyTypeText("Body Type: " + bodyTypeInput, font, 24); //Doesn't print out ints correctly
-            printBodyTypeText.setFillColor(sf::Color::Black);
+            //text for year
+            sf::Text printYearText("Car Year: " + to_string(yearInput), font, 24); //Doesn't print out ints correctly
+            printYearText.setFillColor(sf::Color::Black);
 
-            //Draw body type output
-            printBodyTypeRectangle.setPosition(50, 230);
-            printBodyTypeText.setPosition(printBodyTypeRectangle.getPosition().x + 10, printBodyTypeRectangle.getPosition().y + 10);
-            window.draw(printBodyTypeRectangle);
-            window.draw(printBodyTypeText);
+            //Draw year output
+            printYearRectangle.setPosition(50, 230);
+            printYearText.setPosition(printYearRectangle.getPosition().x + 10, printYearRectangle.getPosition().y + 10);
+            window.draw(printYearRectangle);
+            window.draw(printYearText);
 
-
-            //==========Print distance==========
-            sf::RectangleShape printDistanceRectangle(sf::Vector2f(200, 50));
-            printDistanceRectangle.setFillColor(sf::Color::White);
-
-            //text for distance
-            sf::Text printDistanceText("Distance (Miles): " + to_string(distanceInput), font, 24); //Doesn't print out ints correctly
-            printDistanceText.setFillColor(sf::Color::Black);
-
-            //Draw distance output
-            printDistanceRectangle.setPosition(50, 280);
-            printDistanceText.setPosition(printDistanceRectangle.getPosition().x + 10, printDistanceRectangle.getPosition().y + 10);
-            window.draw(printDistanceRectangle);
-            window.draw(printDistanceText);
-
-
-        }
-        else { //Search is not clicked, keep getting inputs
+        } else { //Search is not clicked, keep getting inputs
 
             //Draw input for make of car
             carMakeRectangle.setPosition(50, 50);
@@ -473,13 +404,13 @@ int main() {
             window.draw(makeHeading);
             window.draw(carMakeText);
 
-            //Draw input for zip code
-            zipCodeRectangle.setPosition(400, 50);
-            zipCodeHeading.setPosition(zipCodeRectangle.getPosition().x, zipCodeRectangle.getPosition().y - 50);
-            zipCodeText.setPosition(zipCodeRectangle.getPosition().x + 10, zipCodeRectangle.getPosition().y + 10);
-            window.draw(zipCodeRectangle);
-            window.draw(zipCodeHeading);
-            window.draw(zipCodeText);
+            //Draw input for car model
+            carModelRectangle.setPosition(400, 50);
+            carModelHeading.setPosition(carModelRectangle.getPosition().x, carModelRectangle.getPosition().y - 50);
+            carModelText.setPosition(carModelRectangle.getPosition().x + 10, carModelRectangle.getPosition().y + 10);
+            window.draw(carModelRectangle);
+            window.draw(carModelHeading);
+            window.draw(carModelText);
 
             //Draw inputs input for min price
             minPriceRectangle.setPosition(50, 200);
@@ -497,31 +428,21 @@ int main() {
             window.draw(maxPriceHeading);
             window.draw(maxPriceText);
 
-            //Draw input for body type
-            bodyTypeRectangle.setPosition(50, 350);
-            bodyTypeHeading.setPosition(bodyTypeRectangle.getPosition().x, bodyTypeRectangle.getPosition().y - 50);
-            bodyTypeText.setPosition(bodyTypeRectangle.getPosition().x + 10, bodyTypeRectangle.getPosition().y + 10);
-            window.draw(bodyTypeRectangle);
-            window.draw(bodyTypeHeading);
-            window.draw(bodyTypeText);
+            //Draw input for year
+            yearRectangle.setPosition(50, 350);
+            yearHeading.setPosition(yearRectangle.getPosition().x, yearRectangle.getPosition().y - 50);
+            yearText.setPosition(yearRectangle.getPosition().x + 10, yearRectangle.getPosition().y + 10);
+            window.draw(yearRectangle);
+            window.draw(yearHeading);
+            window.draw(yearText);
 
-            //Draw input for distance
-            distanceRectangle.setPosition(400, 350);
-            distanceHeading.setPosition(distanceRectangle.getPosition().x, distanceRectangle.getPosition().y - 50);
-            distanceText.setPosition(distanceRectangle.getPosition().x + 10, distanceRectangle.getPosition().y + 10);
-            window.draw(distanceRectangle);
-            window.draw(distanceHeading);
-            window.draw(distanceText);
 
             //Draw Search Button
             searchButtonRectangle.setPosition(400, 450);
             searchButtonText.setPosition(searchButtonRectangle.getPosition().x + 10, searchButtonRectangle.getPosition().y + 10);
             window.draw(searchButtonRectangle);
             window.draw(searchButtonText);
-
-            //Draw Required header
-            requiredHeader.setPosition(400, 100);
-            window.draw(requiredHeader);
+            
 
         }
 
@@ -535,7 +456,7 @@ int main() {
 
     std::cout << "Car Make = " << carMakeInput << std::endl;
 
-    std::cout << "ZipCode = " << zipCodeInput << std::endl;
+    std::cout << "Car model = " << carModelInput << std::endl;
 
     std::cout << "Min Price = " << minPriceInput << std::endl;
 
@@ -544,9 +465,7 @@ int main() {
     }
     std::cout << "Max Price = " << maxPriceInput << std::endl;
 
-    std::cout << "Body Type = " << bodyTypeInput << std::endl;
-
-    std::cout << "Distance = " << distanceInput << std::endl;
+    std::cout << "Car year = " << yearInput << std::endl;
 
 
     return 0;
