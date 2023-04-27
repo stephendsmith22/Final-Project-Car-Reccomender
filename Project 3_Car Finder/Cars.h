@@ -9,5 +9,5 @@ class Cars {
     int id, price, mileage, year;
 public:
     Cars(int id, string make, string model, int price, int mileage, int year)
-        : id(id), make(make), year(year), price(price), mileage(mileage) {}
+        : id(id), make(make), model(model), year(year), price(price), mileage(mileage) {}
 };

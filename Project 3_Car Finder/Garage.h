@@ -10,7 +10,7 @@ class Garage {
 	int id, price, mileage, year;
 	vector<Cars> garage;
 public:
-	Garage(ifstream& file, string makeInput, string modelInput, int maxPrice, int maxMileage, int yearInput);
+	Garage(ifstream& file, string make, string model);
 	void mergeSort();
 	void merge();
 };

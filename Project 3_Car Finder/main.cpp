@@ -31,7 +31,8 @@ struct userInput {
 
 int main() {
     userInput userInput;
-    
+    ifstream file("used_car_sales_csv.csv");
+    Garage g(file, "Ford", "Mustang");
 
     sf::RenderWindow window(sf::VideoMode(800, 500), "Car determiner 3,000");
     //window.setFramerateLimit(60);
@@ -331,14 +332,14 @@ int main() {
         if (isSearchActive) {
 
             ifstream file("used_car_sales_csv.csv");
-            Garage g(file, userInput.make, userInput.model, userInput.maxPrice, userInput.mileage, userInput.year);
+            Garage g(file, "Ford", "F-150");
             
 
             window.clear(sf::Color::White);
 
             //Search through dataset for cars with correct input
-            ifstream file("used_car_sales_csv.csv");
-            Garage g(file, userInput.make, userInput.model, userInput.maxPrice, userInput.mileage, userInput.year);
+            //fstream file("used_car_sales_csv.csv");
+            //Garage g(file, make, model);
 
             //==========Print car make==========
             sf::RectangleShape printCarMakeRectangle(sf::Vector2f(200, 50));
