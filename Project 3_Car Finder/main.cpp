@@ -2,11 +2,9 @@
 #include <fstream>
 #include <SFML/Graphics.hpp>
 #include <sstream>
-
-#pragma "once"
+#include "Cars.h"
 
 using namespace std;
-
 
 
 int main() {
