@@ -33,8 +33,6 @@ struct userInput {
 int main() {
     userInput userInput;
     ifstream file("used_car_sales_csv.csv");
-    Garage g(file, "Ford", "Mustang");
-    g.quickSort(g.garage, 0, g.garage.size() - 1, "price");
 
 
     sf::RenderWindow window(sf::VideoMode(800, 500), "Car determiner 3,000");
@@ -335,7 +333,8 @@ int main() {
         if (isSearchActive) {
 
             ifstream file("used_car_sales_csv.csv");
-            Garage g(file, "Ford", "F-150");
+            //create our garage object which will create a vector of cars which will be sorted
+            Garage g(file, userInput.make, userInput.model);
             
 
             window.clear(sf::Color::White);
