@@ -63,65 +63,79 @@ void quickSort(std::vector<int> & arr, int low, int high) {
 }*/
 
 
-/*
-void mergeSort(std::vector<int>& arr, int left, int right) {
 
-    if (left < right) {
+void merge(int array[], int const left, int const mid, int const right) {
+    auto const subArrayOne = mid - left + 1;
+    auto const subArrayTwo = right - mid;
 
-        //m is the point where the array is divided into two subarrays
-        int mid = left + (right - left) / 2;
-        mergeSort(arr, left, mid);
-        mergeSort(arr, mid + 1, right);
+    // Create temp arrays
+    auto* leftArray = new int[subArrayOne],
+        * rightArray = new int[subArrayTwo];
 
-        //Merge the sorted subarrays
-        merge(arr, left, mid, right);
-    }
-}
+    // Copy data to temp arrays leftArray[] and rightArray[]
+    for (auto i = 0; i < subArrayOne; i++)
+        leftArray[i] = array[left + i];
+    for (auto j = 0; j < subArrayTwo; j++)
+        rightArray[j] = array[mid + 1 + j];
 
-void merge(std::vector<int>& arr, int left, int mid, int right) {
+    auto indexOfSubArrayOne
+        = 0, // Initial index of first sub-array
+        indexOfSubArrayTwo
+        = 0; // Initial index of second sub-array
+    int indexOfMergedArray
+        = left; // Initial index of merged array
 
-    //Create x <= arr[left..mid] & y <- arr[mid.. right
-    int n1 = mid - left + 1;
-    int n2 = right - mid;
-    int X[n1], Y[n2]; //TODO::Figure this out
+    // Merge the temp arrays back into array[left..right]
+    while (indexOfSubArrayOne < subArrayOne && indexOfSubArrayTwo < subArrayTwo) {
+        if (leftArray[indexOfSubArrayOne] <= rightArray[indexOfSubArrayTwo]) {
 
-    for (int i = 0; i < n1; i++) {
-        X[i] = arr[left + i];
-    }
-    for (int j = 0; j < n2; j++) {
-        Y[j] = arr[mid + 1 + j];
-    }
-
-    //Merge the arrays X and Y into arr
-    int i, j, k;
-    i = 0;
-    j = 0;
-    k = left;
-
-    while (i < n1 && j < n2) {
-        if (X[i] <= Y[j]) {
-            arr[k] = X[i];
-            i++;
+            array[indexOfMergedArray] = leftArray[indexOfSubArrayOne];
+            indexOfSubArrayOne++;
         }
         else {
-            arr[k] = Y[j];
-            j++;
+            array[indexOfMergedArray] = rightArray[indexOfSubArrayTwo];
+            indexOfSubArrayTwo++;
         }
-        k++;
+        indexOfMergedArray++;
     }
 
-    //When we run out of elements in either X or Y append the remaining elements
-    while (i < n1) {
-        arr[k] = X[i];
-        i++;
-        k++;
+    // Copy the remaining elements of
+    // left[], if there are any
+    while (indexOfSubArrayOne < subArrayOne) {
+        array[indexOfMergedArray] = leftArray[indexOfSubArrayOne];
+        indexOfSubArrayOne++;
+        indexOfMergedArray++;
     }
-
-    while (j < n2) {
-        arr[k] = Y[j];
-        j++;
-        k++;
+    // Copy the remaining elements of
+    // right[], if there are any
+    while (indexOfSubArrayTwo < subArrayTwo) {
+        array[indexOfMergedArray] = rightArray[indexOfSubArrayTwo];
+        indexOfSubArrayTwo++;
+        indexOfMergedArray++;
     }
-
+    delete[] leftArray;
+    delete[] rightArray;
 }
-*/
+
+// begin is for left index and end is
+// right index of the sub-array
+// of arr to be sorted */
+void mergeSort(int array[], int const begin, int const end)
+{
+    if (begin >= end)
+        return; // Returns recursively
+
+    auto mid = begin + (end - begin) / 2;
+    mergeSort(array, begin, mid);
+    mergeSort(array, mid + 1, end);
+    merge(array, begin, mid, end);
+}
+
+// UTILITY FUNCTIONS
+// Function to print an array
+void printArray(int A[], int size)
+{
+    for (auto i = 0; i < size; i++)
+        cout << A[i] << " ";
+}
+
