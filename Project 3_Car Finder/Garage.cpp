@@ -36,8 +36,9 @@ Garage::Garage(ifstream& file, string make, string model) {
 		//scrap the rest
 		getline(file, tempString);
 		if (this->make == make && this->model == model) {
-			Cars tempCar(id, this->make, this->model, price, mileage, year);
-			garage[id] = ;
+			Cars tempCar(this->make, this->model, price, mileage, year);
+			garage[id] = tempCar;
 		}
 	}
+
 }
