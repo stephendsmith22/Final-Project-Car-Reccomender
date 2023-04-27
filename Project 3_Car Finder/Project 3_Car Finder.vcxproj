@@ -139,7 +139,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Cars.cpp" />
+    <ClCompile Include="Garage.cpp" />
     <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\Project 3_Car Finder\Project 3_Car Finder\used_car_sales_csv.csv" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="..\..\..\Project 3_Car Finder\Project 3_Car Finder\arial.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Cars.h" />
+    <ClInclude Include="Garage.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
