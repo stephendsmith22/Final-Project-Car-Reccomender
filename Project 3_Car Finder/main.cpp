@@ -131,13 +131,13 @@ int main() {
     searchButtonText.setFillColor(sf::Color::White);
 
 
-
     bool isCarMakeActive = false;
     bool isCarModelActive = false;
     bool isMaxPriceActive = false;
     bool isMaxMileageActive = false;
     bool isYearActive = false;
     bool isSearchActive = false;
+    bool isImportanceActive = false;
     while (window.isOpen()) {
 
         sf::Event event;
@@ -320,6 +320,7 @@ int main() {
             if (!isSearchActive && event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && searchButtonRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
                 isSearchActive = true;
             }
+
         }
 
 
@@ -402,6 +403,7 @@ int main() {
             window.draw(printYearRectangle);
             window.draw(printYearText);
 
+
         }
         else { //Search is not clicked, keep getting inputs
 
@@ -444,7 +446,6 @@ int main() {
             window.draw(yearRectangle);
             window.draw(yearHeading);
             window.draw(yearText);
-
 
             //Draw Search Button
             searchButtonRectangle.setPosition(400, 450);
