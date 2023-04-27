@@ -28,15 +28,16 @@ Garage::Garage(ifstream& file) {
 		//read in make
 		getline(file, make, ',');
 		cout << make << " ";
-		//scrap model
-		getline(file, tempString, ',');
+		//read in model
+		getline(file, model, ',');
+		cout << model << " ";
 		//read in year
 		getline(file, tempString, ',');
 		year = stoi(tempString);
 		cout << year << " ";
 		//scrap the rest
 		getline(file, tempString);
-		Cars tempCar(id, make, price, mileage, year);
+		Cars tempCar(id, make, model, price, mileage, year);
 		garage.push_back(tempCar);
 		cout << ", Size of garage: " << garage.size() << endl;
 	}

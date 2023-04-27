@@ -6,7 +6,7 @@
 using namespace std;
 
 class Garage {
-	string make, tempString;
+	string make, model, tempString;
 	int id, price, mileage, year;
 	vector<Cars> garage;
 public:

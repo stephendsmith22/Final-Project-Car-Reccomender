@@ -5,9 +5,9 @@
 using namespace std;
 
 class Cars {
-    string make;
+    string make, model;
     int id, price, mileage, year;
 public:
-    Cars(int id, string make, int price, int mileage, int year)
+    Cars(int id, string make, string model, int price, int mileage, int year)
         : id(id), make(make), year(year), price(price), mileage(mileage) {}
 };
