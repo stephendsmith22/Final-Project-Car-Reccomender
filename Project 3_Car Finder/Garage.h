@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Cars.h"
 #include <vector> 
+#include <map>
 #include <fstream>
 
 using namespace std;
@@ -8,11 +9,12 @@ using namespace std;
 class Garage {
 	string make, model, tempString;
 	int id, price, mileage, year;
-	vector<Cars> garage;
+	map<int, Cars> garage;
 public:
 	Garage(ifstream& file, string make, string model);
 	void mergeSort();
 	void merge();
+    void bubbleSort(vector<int>& arr, int n);
 };
 
 

@@ -6,8 +6,11 @@ using namespace std;
 
 class Cars {
     string make, model;
-    int id, price, mileage, year;
+    int price, mileage, year;
 public:
-    Cars(int id, string make, string model, int price, int mileage, int year)
-        : id(id), make(make), model(model), year(year), price(price), mileage(mileage) {}
+    Cars(string make, string model, int price, int mileage, int year)
+        : make(make), model(model), year(year), price(price), mileage(mileage) {}
+    int getPrice() { return price; }
+    int getMileage() { return mileage; }
+    int getYear() { return year; }
 };

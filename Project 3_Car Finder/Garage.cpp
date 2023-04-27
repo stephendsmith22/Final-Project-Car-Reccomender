@@ -3,6 +3,7 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <map>
 
 using namespace std;
 
@@ -36,7 +37,7 @@ Garage::Garage(ifstream& file, string make, string model) {
 		getline(file, tempString);
 		if (this->make == make && this->model == model) {
 			Cars tempCar(id, this->make, this->model, price, mileage, year);
-			garage.push_back(tempCar);
+			garage[id] = ;
 		}
 	}
 }
