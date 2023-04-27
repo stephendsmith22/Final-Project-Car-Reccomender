@@ -28,6 +28,19 @@ struct userInput {
 
 };
 
+struct fileStruct {
+
+    int id;
+    int price;
+    int mileage;
+    int year;
+    std::string make;
+    std::string model;
+};
+
+void mergeSort(int arr[], int left, int right);
+void merge(int arr[], int left, int mid, int right);
+
 void readFile() {
 
     std::ifstream fin("C:/Users/elilo/source/repos/Final-Project-Car-Reccomender/Project 3_Car Finder/SimpleCars_csv.csv");
@@ -496,13 +509,97 @@ int main() {
 
     }
 
+
+
+
+
     std::cout << "Car Make = " << userInput.make << std::endl;
     std::cout << "Car model = " << userInput.model << std::endl;
     std::cout << "Max Price = " << userInput.maxPrice << std::endl;
     std::cout << "Max Mileage = " << userInput.mileage << std::endl;
     std::cout << "Car year = " << userInput.year << std::endl;
 
+    
+    std::vector<fileStruct> readCars;
 
+    fileStruct a;
+    a.id = 1;
+    a.price = 1000;
+    a.make = "Ford";
+    a.model = "F-150";
+    a.mileage = 10;
+    a.year = 2010;
+
+    fileStruct b;
+    b.id = 2;
+    b.price = 2000;
+    b.make = "Ford";
+    b.model = "F-150";
+    b.mileage = 10;
+    b.year = 2010;
+
+    readCars.push_back(a);
+    readCars.push_back(b);
+
+
+    std::vector<fileStruct> matchingCars;
+    for (auto& i : readCars) {
+
+        if (i.make != userInput.make || i.model != userInput.model || i.year != userInput.year || 
+            i.price > userInput.maxPrice || i.mileage > userInput.mileage) { // Values don't match, dont keep this car
+            
+
+            std::cout << "Fail" << std::endl;
+            continue;
+        }
+        else { // Values match keep car
+
+            std::cout << "Pass" << std::endl;
+            matchingCars.push_back(i);
+        }
+
+    }
+
+    for (auto i : matchingCars) {
+
+        std::cout << i.id << std::endl;
+    }
+
+
+    //==========Merge Sort==========
+
+   
+
+
+
+    //==========Quick Sort==========
 
     return 0;
+}
+
+
+void mergeSort(int arr[], int left, int right) {
+
+    if (left < right) {
+
+        //m is the point where the array is divided into two subarrays
+        int mid = left + (right - left) / 2;
+        mergeSort(arr, left, mid);
+        mergeSort(arr, mid + 1, right);
+
+        //Merge the sorted subarrays
+        merge(arr, left, mid, right);
+    }
+}
+
+void merge(int arr[], int left, int mid, int right) {
+
+    //Create x <= arr[left..mid] & y <- arr[mid.. right
+    int n1 = mid - left + 1;
+    int n2 = right - mid;
+    int X[n1], y[n2]; //TODO::Figure this out
+
+    for (int i = 0; i < n1; i++) {
+        X[i] = arr[left + i];
+    }
 }
