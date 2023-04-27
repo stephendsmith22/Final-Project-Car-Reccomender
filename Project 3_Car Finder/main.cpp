@@ -34,7 +34,7 @@ int main() {
     userInput userInput;
     ifstream file("used_car_sales_csv.csv");
     Garage g(file, "Ford", "Mustang");
-    g.quickSort(g.garage, 0, g.garage.size() - 1, "year");
+    g.quickSort(g.garage, 0, g.garage.size() - 1, "price");
 
 
     sf::RenderWindow window(sf::VideoMode(800, 500), "Car determiner 3,000");
