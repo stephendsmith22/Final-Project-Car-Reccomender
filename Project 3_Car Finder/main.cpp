@@ -121,6 +121,23 @@ int main() {
     searchButtonText.setFillColor(sf::Color::White);
 
 
+    //==========Set up text, box, text, and inputs for importance==========
+    sf::RectangleShape importanceRectangle = textBox();
+
+    //Hold text for importance
+    sf::Text importanceText;
+    importanceText.setFont(font);
+    importanceText.setCharacterSize(24);
+    importanceText.setFillColor(sf::Color::Black);
+    importanceText.setString("");
+
+    //importance Heading
+    sf::Text importanceHeading("What is most important for you from most to least?", font, 12);
+    sf::Text importanceHeading2("(Mileage, Price, Year)", font, 12);
+    importanceHeading.setFillColor(sf::Color::Blue);
+    importanceHeading2.setFillColor(sf::Color::Blue);
+
+
 
     bool isCarMakeActive = false;
     bool isCarModelActive = false;
@@ -128,6 +145,7 @@ int main() {
     bool isMaxMileageActive = false;
     bool isYearActive = false;
     bool isSearchActive = false;
+    bool isImportanceActive = false;
     while (window.isOpen()) {
 
         sf::Event event;
@@ -310,6 +328,35 @@ int main() {
             if (!isSearchActive && event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && searchButtonRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
                 isSearchActive = true;
             }
+
+
+            //==========Importance==========
+            //User clicked in the importance text box
+            if (!isSearchActive && event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && importanceRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+                isImportanceActive = true;
+            }
+            //User is typing in the importance text box
+            if (!isSearchActive && event.type == sf::Event::TextEntered && isImportanceActive) {
+
+                if (event.text.unicode < 128 && event.text.unicode != '\b') { //Get input for importance
+
+                    importanceText.setString(importanceText.getString() + static_cast<char>(event.text.unicode));
+                   // userInput.importance = importanceText.getString();
+                }
+                else if (event.text.unicode == '\b') { // Handle backspace
+
+                    std::string str = importanceText.getString();
+                    if (str.size() > 0) {
+                        str.pop_back();
+                        importanceText.setString(str);
+                       // userInput.importance = importanceText.getString();
+                    }
+                }
+            }
+            // Check if the user clicked outside of the importance text box to deactivate it
+            if (!isSearchActive && event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && !importanceRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+                isImportanceActive = false;
+            }
         }
 
 
@@ -392,6 +439,21 @@ int main() {
             window.draw(printYearRectangle);
             window.draw(printYearText);
 
+
+            //==========Print importance==========
+            sf::RectangleShape printImportanceRectangle(sf::Vector2f(200, 50));
+            printImportanceRectangle.setFillColor(sf::Color::White);
+
+            //text for importance
+            //sf::Text printImportanceText("Importance (most to least): " + userInput.importance, font, 24);
+           // printImportanceText.setFillColor(sf::Color::Black);
+
+            //Draw year output
+            printImportanceRectangle.setPosition(50, 230);
+            //printImportanceText.setPosition(printImportanceRectangle.getPosition().x + 10, printImportanceRectangle.getPosition().y + 10);
+            window.draw(printImportanceRectangle);
+            //window.draw(printImportanceText);
+
         }
         else { //Search is not clicked, keep getting inputs
 
@@ -434,6 +496,16 @@ int main() {
             window.draw(yearRectangle);
             window.draw(yearHeading);
             window.draw(yearText);
+
+            //Draw input for importance
+            importanceRectangle.setPosition(400, 350);
+            importanceHeading.setPosition(importanceRectangle.getPosition().x, importanceRectangle.getPosition().y - 50);
+            importanceHeading2.setPosition(importanceRectangle.getPosition().x, importanceRectangle.getPosition().y - 30);
+            importanceText.setPosition(importanceRectangle.getPosition().x + 10, importanceRectangle.getPosition().y + 10);
+            window.draw(importanceRectangle);
+            window.draw(importanceHeading);
+            window.draw(importanceHeading2);
+            window.draw(importanceText);
 
 
             //Draw Search Button
