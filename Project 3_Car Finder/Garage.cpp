@@ -164,3 +164,76 @@ void Garage::quickSort(vector<Cars> map_garage, int start, int end, string sorti
 	// Sorting the right part
 	quickSort(garage, p + 1, end, sortingChoice);
 }
+
+void Garage::merge(vector<Cars>& arr, int left, int mid, int right, string sortingChoice) {
+
+	int n1 = mid - left + 1;
+	int n2 = right - mid;
+	/*
+	vector<Cars> L(n1), R(n2);
+
+
+	for (int i = 0; i < n1; i++)
+		L[i] = arr[left + i];
+	for (int j = 0; j < n2; j++)
+		R[j] = arr[mid + 1 + j];
+
+	int i = 0, j = 0, k = left;
+	while (i < n1 && j < n2) {
+		if (sortingChoice == "price") {
+			if (L[i].getPrice() <= R[j].getPrice()) {
+				arr[k] = L[i];
+				i++;
+			}
+			else {
+				arr[k] = R[j];
+				j++;
+			}
+		}
+		else if (sortingChoice == "mileage") {
+			if (L[i].getMileage() <= R[j].getMileage()) {
+				arr[k] = L[i];
+				i++;
+			}
+			else {
+				arr[k] = R[j];
+				j++;
+			}
+		}
+		else if (sortingChoice == "year") {
+			if (L[i].getYear() <= R[j].getYear()) {
+				arr[k] = L[i];
+				i++;
+			}
+			else {
+				arr[k] = R[j];
+				j++;
+			}
+		}
+		k++;
+	}
+
+	while (i < n1) {
+		arr[k] = L[i];
+		i++;
+		k++;
+	}
+	while (j < n2) {
+		arr[k] = R[j];
+		j++;
+		k++;
+	}
+	*/
+
+}
+
+
+void Garage::mergeSort(vector<Cars>& arr, int left, int right, string sortingChoice) {
+
+	if (left < right) {
+		int mid = left + (right - left) / 2;
+		mergeSort(arr, left, mid, sortingChoice);
+		mergeSort(arr, mid + 1, right, sortingChoice);
+		merge(arr, left, mid, right, sortingChoice);
+	}
+}
