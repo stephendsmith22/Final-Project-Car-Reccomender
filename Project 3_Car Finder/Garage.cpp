@@ -9,7 +9,7 @@ using namespace std;
 Garage::Garage(ifstream& file) {
 	//get rid of the first line because it's just the column titles
 	getline(file, tempString);
-	while (file.is_open()) {
+	while (garage.size() < 122144) {
 		//read in id
 		getline(file, tempString, ',');
 		id = stoi(tempString);
