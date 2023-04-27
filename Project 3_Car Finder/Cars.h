@@ -3,21 +3,12 @@
 
 using namespace std;
 
-Class Cars{
+class Cars{
     
 
 
 };
-sf::RectangleShape textBox() {
 
-    // Set up the rectangle
-    sf::RectangleShape rectangle(sf::Vector2f(200, 50));
-    rectangle.setFillColor(sf::Color::White);
-    rectangle.setOutlineThickness(2);
-    rectangle.setOutlineColor(sf::Color::Black);
-
-    return rectangle;
-}
 
 struct userInput {
 
