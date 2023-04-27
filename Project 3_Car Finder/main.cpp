@@ -330,6 +330,8 @@ int main() {
         //Show results if button is clicked
         if (isSearchActive) {
 
+            ifstream file("used_car_sales_csv.csv");
+            Garage g(file, userInput.make, userInput.model, userInput.maxPrice, userInput.mileage, userInput.year);
             
 
             window.clear(sf::Color::White);
