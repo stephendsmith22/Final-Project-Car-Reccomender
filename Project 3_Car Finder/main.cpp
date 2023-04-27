@@ -31,8 +31,6 @@ struct userInput {
 
 int main() {
     userInput userInput;
-    ifstream file("used_car_sales_csv.csv");
-    Garage g(file, "Ford", "Mustang");
 
     sf::RenderWindow window(sf::VideoMode(800, 500), "Car determiner 3,000");
     //window.setFramerateLimit(60);
