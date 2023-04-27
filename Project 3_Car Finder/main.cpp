@@ -30,12 +30,11 @@ struct userInput {
 
 
 int main() {
-
+    int t = stoi("999999");
+    cout << t << endl;
     userInput userInput;
     ifstream file("used_car_sales_csv.csv");
-    if (file.is_open())
-        cout << "We're open";
-    //Garage g(file);
+    Garage g(file);
 
     sf::RenderWindow window(sf::VideoMode(800, 500), "Car determiner 3,000");
     //window.setFramerateLimit(60);
