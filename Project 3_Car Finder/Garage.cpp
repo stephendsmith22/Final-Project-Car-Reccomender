@@ -9,7 +9,7 @@ using namespace std;
 Garage::Garage(ifstream& file, string make, string model) {
 	//get rid of the first line because it's just the column titles
 	getline(file, tempString);
-	while (file.is_open() && garage.size() < 10) {
+	while (file.is_open()) {
 		//read in id, if our tempString is blank, then we have reached the end of the file
 		getline(file, tempString, ',');
 		if (tempString.size() == 0)
