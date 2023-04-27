@@ -519,7 +519,7 @@ int main() {
     std::cout << "Max Mileage = " << userInput.mileage << std::endl;
     std::cout << "Car year = " << userInput.year << std::endl;
 
-    
+
     std::vector<fileStruct> readCars;
 
     fileStruct a;
@@ -545,9 +545,9 @@ int main() {
     std::vector<fileStruct> matchingCars;
     for (auto& i : readCars) {
 
-        if (i.make != userInput.make || i.model != userInput.model || i.year != userInput.year || 
+        if (i.make != userInput.make || i.model != userInput.model || i.year != userInput.year ||
             i.price > userInput.maxPrice || i.mileage > userInput.mileage) { // Values don't match, dont keep this car
-            
+
 
             std::cout << "Fail" << std::endl;
             continue;
@@ -568,7 +568,7 @@ int main() {
 
     //==========Merge Sort==========
 
-   
+
 
 
 
@@ -578,7 +578,8 @@ int main() {
 }
 
 
-void mergeSort(int arr[], int left, int right) {
+/*
+void mergeSort(std::vector<int>& arr, int left, int right) {
 
     if (left < right) {
 
@@ -592,14 +593,49 @@ void mergeSort(int arr[], int left, int right) {
     }
 }
 
-void merge(int arr[], int left, int mid, int right) {
+void merge(std::vector<int>& arr, int left, int mid, int right) {
 
     //Create x <= arr[left..mid] & y <- arr[mid.. right
     int n1 = mid - left + 1;
     int n2 = right - mid;
-    int X[n1], y[n2]; //TODO::Figure this out
+    int X[n1], Y[n2]; //TODO::Figure this out
 
     for (int i = 0; i < n1; i++) {
         X[i] = arr[left + i];
     }
+    for (int j = 0; j < n2; j++) {
+        Y[j] = arr[mid + 1 + j];
+    }
+
+    //Merge the arrays X and Y into arr
+    int i, j, k;
+    i = 0;
+    j = 0;
+    k = left;
+
+    while (i < n1 && j < n2) {
+        if (X[i] <= Y[j]) {
+            arr[k] = X[i];
+            i++;
+        }
+        else {
+            arr[k] = Y[j];
+            j++;
+        }
+        k++;
+    }
+
+    //When we run out of elements in either X or Y append the remaining elements
+    while (i < n1) {
+        arr[k] = X[i];
+        i++;
+        k++;
+    }
+
+    while (j < n2) {
+        arr[k] = Y[j];
+        j++;
+        k++;
+    }
+
 }
