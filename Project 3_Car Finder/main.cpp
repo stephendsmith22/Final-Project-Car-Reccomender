@@ -1,5 +1,5 @@
 #include <iostream>
-#include <fstream>
+
 #include <SFML/Graphics.hpp>
 #include <sstream>
 #include "Cars.h"
@@ -17,11 +17,21 @@ sf::RectangleShape textBox() {
     return rectangle;
 }
 
+struct userInput {
+
+    int maxPrice;
+    int mileage;
+    int year;
+    std::string make;
+    std::string model;
+
+};
+
 
 int main() {
 
     userInput userInput;
-
+    
     sf::RenderWindow window(sf::VideoMode(800, 500), "Car determiner 3,000");
     //window.setFramerateLimit(60);
 
