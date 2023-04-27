@@ -14,7 +14,8 @@ public:
 	Garage(ifstream& file, string make, string model);
 	void mergeSort();
 	void merge();
-    void bubbleSort(vector<int>& arr, int n);
+    int partition(map<int, Cars> map_garage, int start, int end, string sortingChoice);
+    void quickSort(map<int, Cars> map_garage, int start, int end, string sortingChoice);
 };
 
 
@@ -36,7 +37,7 @@ public:
         }
 
         for(int j = high; j > low; j--) {
-
+        
             if(arr[down] < pivot) {
                 break;
             }

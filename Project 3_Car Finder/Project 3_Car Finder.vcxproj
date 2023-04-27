@@ -139,7 +139,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Cars.cpp" />
     <ClCompile Include="Garage.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>

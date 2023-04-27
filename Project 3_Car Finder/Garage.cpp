@@ -39,6 +39,57 @@ Garage::Garage(ifstream& file, string make, string model) {
 			Cars tempCar(this->make, this->model, price, mileage, year);
 			garage[id] = tempCar;
 		}
+
 	}
 
+}
+
+int Garage::partition(map<int, Cars> map_garage, int start, int end, string sortingChoice){
+	if (sortingChoice == "price") {
+		// base case
+		if (start >= end)
+			return;
+
+		// partitioning the array
+		int p = partition(garage, start, end, "price");
+
+		// Sorting the left part
+		quickSort(garage, start, p - 1, "price");
+
+		// Sorting the right part
+		quickSort(garage, p + 1, end, "price");
+	}
+	else if (sortingChoice == "mileage") {
+
+	}
+	else if (sortingChoice == "year") {
+
+	}
+	else
+		cout << "Invalid sorting choice, cannot perform sort.\n";
+}
+
+void Garage::quickSort(map<int, Cars> map_garage, int start, int end, string sortingChoice){
+	if (sortingChoice == "price") {
+		// base case
+		if (start >= end)
+			return;
+
+		// partitioning the array
+		int p = partition(garage, start, end, "price");
+
+		// Sorting the left part
+		quickSort(garage, start, p - 1, "price");
+
+		// Sorting the right part
+		quickSort(garage, p + 1, end, "price");
+	}
+	else if (sortingChoice == "mileage") {
+
+	}
+	else if (sortingChoice == "year") {
+
+	}
+	else
+		cout << "Invalid sorting choice, cannot perform sort.\n";
 }
