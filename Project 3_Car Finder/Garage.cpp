@@ -46,18 +46,38 @@ Garage::Garage(ifstream& file, string make, string model) {
 
 int Garage::partition(map<int, Cars> map_garage, int start, int end, string sortingChoice){
 	if (sortingChoice == "price") {
-		// base case
-		if (start >= end)
-			return;
+		int pivot = garage[start].getPrice();
 
-		// partitioning the array
-		int p = partition(garage, start, end, "price");
+		int count = 0;
+		auto iter
+		for (auto i = start + 1; i <= end; i++) {
+			if (garage[i].getPrice() <= pivot)
+				count++;
+		}
 
-		// Sorting the left part
-		quickSort(garage, start, p - 1, "price");
+		// Giving pivot element its correct position
+		int pivotIndex = start + count;
+		swap(garage[pivotIndex].getPrice(), garage[start].getPrice());
 
-		// Sorting the right part
-		quickSort(garage, p + 1, end, "price");
+		// Sorting left and right parts of the pivot element
+		int i = start, j = end;
+
+		while (i < pivotIndex && j > pivotIndex) {
+
+			while (garage[i].getPrice() <= pivot) {
+				i++;
+			}
+
+			while (garage[j].getPrice() > pivot) {
+				j--;
+			}
+
+			if (i < pivotIndex && j > pivotIndex) {
+				swap(garage[i++].getPrice(), garage[j--].getPrice());
+			}
+		}
+
+		return pivotIndex;
 	}
 	else if (sortingChoice == "mileage") {
 
@@ -65,8 +85,6 @@ int Garage::partition(map<int, Cars> map_garage, int start, int end, string sort
 	else if (sortingChoice == "year") {
 
 	}
-	else
-		cout << "Invalid sorting choice, cannot perform sort.\n";
 }
 
 void Garage::quickSort(map<int, Cars> map_garage, int start, int end, string sortingChoice){
