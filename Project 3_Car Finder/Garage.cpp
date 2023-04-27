@@ -168,10 +168,19 @@ void Garage::quickSort(vector<Cars> map_garage, int start, int end, string sorti
 void Garage::merge(vector<Cars>& arr, int left, int mid, int right, string sortingChoice) {
 
 	int n1 = mid - left + 1;
-	int n2 = right - mid;
-	/*
-	vector<Cars> L(n1), R(n2);
+	cout << n1 << endl;
+	cout << right << endl;
+	cout << mid << endl;
+	cout << left << endl;
 
+	int n2 = right - mid;
+	cout << n2 << endl;
+
+	vector<Cars> L;
+	L.reserve(n1);
+
+	vector<Cars> R;
+	R.reserve(n2);
 
 	for (int i = 0; i < n1; i++)
 		L[i] = arr[left + i];
@@ -223,7 +232,7 @@ void Garage::merge(vector<Cars>& arr, int left, int mid, int right, string sorti
 		j++;
 		k++;
 	}
-	*/
+
 
 }
 
@@ -232,8 +241,8 @@ void Garage::mergeSort(vector<Cars>& arr, int left, int right, string sortingCho
 
 	if (left < right) {
 		int mid = left + (right - left) / 2;
-		mergeSort(arr, left, mid, sortingChoice);
-		mergeSort(arr, mid + 1, right, sortingChoice);
-		merge(arr, left, mid, right, sortingChoice);
+		mergeSort(garage, left, mid, sortingChoice);
+		mergeSort(garage, mid + 1, right, sortingChoice);
+		merge(garage, left, mid, right, sortingChoice);
 	}
 }
