@@ -3,7 +3,6 @@
 #include <fstream>
 #include <iostream>
 #include <string>
-#include <map>
 
 using namespace std;
 
@@ -37,44 +36,47 @@ Garage::Garage(ifstream& file, string make, string model) {
 		getline(file, tempString);
 		if (this->make == make && this->model == model) {
 			Cars tempCar(this->make, this->model, price, mileage, year);
-			garage[id] = tempCar;
+			garage.push_back(tempCar);
 		}
 
 	}
 
 }
 
-int Garage::partition(map<int, Cars> map_garage, int start, int end, string sortingChoice){
+void Garage::swap(Cars& a, Cars& b){
+	Cars tempCar = a;
+	a = b;
+	b = tempCar;
+}
+
+int Garage::partition(vector<Cars> map_garage, int start, int end, string sortingChoice){
 	if (sortingChoice == "price") {
+
 		int pivot = garage[start].getPrice();
 
 		int count = 0;
-		auto iter
-		for (auto i = start + 1; i <= end; i++) {
+		for (int i = start + 1; i <= end; i++) {
 			if (garage[i].getPrice() <= pivot)
 				count++;
 		}
 
 		// Giving pivot element its correct position
 		int pivotIndex = start + count;
-		swap(garage[pivotIndex].getPrice(), garage[start].getPrice());
+		swap(garage[pivotIndex], garage[start]);
 
 		// Sorting left and right parts of the pivot element
 		int i = start, j = end;
 
 		while (i < pivotIndex && j > pivotIndex) {
 
-			while (garage[i].getPrice() <= pivot) {
+			while (garage[i].getPrice() <= pivot)
 				i++;
-			}
 
-			while (garage[j].getPrice() > pivot) {
+			while (garage[j].getPrice() > pivot)
 				j--;
-			}
 
-			if (i < pivotIndex && j > pivotIndex) {
-				swap(garage[i++].getPrice(), garage[j--].getPrice());
-			}
+			if (i < pivotIndex && j > pivotIndex)
+				swap(garage[i++], garage[j--]);
 		}
 
 		return pivotIndex;
@@ -87,27 +89,16 @@ int Garage::partition(map<int, Cars> map_garage, int start, int end, string sort
 	}
 }
 
-void Garage::quickSort(map<int, Cars> map_garage, int start, int end, string sortingChoice){
-	if (sortingChoice == "price") {
-		// base case
-		if (start >= end)
-			return;
+void Garage::quickSort(vector<Cars> map_garage, int start, int end, string sortingChoice){
+	if (start >= end)
+		return;
 
-		// partitioning the array
-		int p = partition(garage, start, end, "price");
+	// partitioning the array
+	int p = partition(garage, start, end, sortingChoice);
 
-		// Sorting the left part
-		quickSort(garage, start, p - 1, "price");
+	// Sorting the left part
+	quickSort(garage, start, p - 1, sortingChoice);
 
-		// Sorting the right part
-		quickSort(garage, p + 1, end, "price");
-	}
-	else if (sortingChoice == "mileage") {
-
-	}
-	else if (sortingChoice == "year") {
-
-	}
-	else
-		cout << "Invalid sorting choice, cannot perform sort.\n";
+	// Sorting the right part
+	quickSort(garage, p + 1, end, sortingChoice);
 }

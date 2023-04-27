@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <fstream>
 #include <sstream>
+#include <vector>
 #include "Cars.h"
 #include "Garage.h"
 
@@ -31,6 +32,8 @@ struct userInput {
 
 int main() {
     userInput userInput;
+    Cars carA("Ford", "Mustang", 7500, 84430, 1988), carB("Jaguar", "XJS", 8750, 55000, 1995);
+    Cars tempCar = carA;
 
     sf::RenderWindow window(sf::VideoMode(800, 500), "Car determiner 3,000");
     //window.setFramerateLimit(60);
