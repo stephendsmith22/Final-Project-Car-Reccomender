@@ -49,6 +49,78 @@ void Garage::swap(Cars& a, Cars& b){
 	b = tempCar;
 }
 
+int Garage::binarySearch(int l, int r, int key, string sortingChoice){
+	if (sortingChoice == "price") {
+		while (l <= r) {
+			int m = l + (r - l) / 2;
+
+			// Check if x is present at mid
+			if (garage[m].getPrice() == key)
+				return m;
+
+			// If x greater, ignore left half
+			if (garage[m].getPrice() < key)
+				l = m + 1;
+
+			// If x is smaller, ignore right half
+			else
+				r = m - 1;
+		}	
+	}
+	else if (sortingChoice == "mileage") {
+		while (l <= r) {
+			int m = l + (r - l) / 2;
+
+			// Check if x is present at mid
+			if (garage[m].getMileage() == key)
+				return m;
+
+			// If x greater, ignore left half
+			if (garage[m].getMileage() < key)
+				l = m + 1;
+
+			// If x is smaller, ignore right half
+			else
+				r = m - 1;
+		}
+	}
+	else if (sortingChoice == "year") {
+		while (l <= r) {
+			int m = l + (r - l) / 2;
+
+			// Check if x is present at mid
+			if (garage[m].getYear() == key)
+				return m;
+
+			// If x greater, ignore left half
+			if (garage[m].getYear() < key)
+				l = m + 1;
+
+			// If x is smaller, ignore right half
+			else
+				r = m - 1;
+		}
+	}
+	// if we reach here, then element was
+	// not present
+	return -1;
+}
+
+void Garage::removeElements(int threshold, string sortingChoice){
+	if (sortingChoice == "price") {
+		int indexThreshold = binarySearch(0, garage.size() - 1, threshold, "price");
+		garage.erase(garage.begin() + indexThreshold + 1, garage.end());
+	}
+	else if (sortingChoice == "mileage") {
+		int indexThreshold = binarySearch(0, garage.size() - 1, threshold, "mileage");
+		garage.erase(garage.begin(), garage.begin() + indexThreshold + 1);
+	}
+	else if (sortingChoice == "year") {
+		int indexThreshold = binarySearch(0, garage.size() - 1, threshold, "year");
+		garage.erase(garage.begin(), garage.begin() + indexThreshold + 1);
+	}
+}
+
 int Garage::partition(vector<Cars> map_garage, int start, int end, string sortingChoice){
 	if (sortingChoice == "price") {
 		int pivot = garage[start].getPrice();

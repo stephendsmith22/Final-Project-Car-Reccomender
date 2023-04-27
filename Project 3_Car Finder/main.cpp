@@ -336,6 +336,26 @@ int main() {
             //create our garage object which will create a vector of cars which will be sorted
             Garage g(file, userInput.make, userInput.model);
             
+            //=============Merge Sort==============
+
+
+
+
+
+
+            //=============Quick Sort===============
+            g.quickSort(g.garage, 0, g.garage.size() - 1, "price");
+            //remove all elements that are not under the inputted price
+            g.removeElements(userInput.maxPrice, "price");
+            g.quickSort(g.garage, 0, g.garage.size() - 1, "mileage");
+            g.removeElements(userInput.mileage, "mileage");
+            g.quickSort(g.garage, 0, g.garage.size() - 1, "year");
+            g.removeElements(userInput.year, "year");
+
+
+
+
+
 
             window.clear(sf::Color::White);
 
@@ -414,6 +434,16 @@ int main() {
             printYearText.setPosition(printYearRectangle.getPosition().x + 10, printYearRectangle.getPosition().y + 10);
             window.draw(printYearRectangle);
             window.draw(printYearText);
+            
+
+            //Display all cars that would satisfy the requirements given by the user
+
+            /*sf::Text printYearText("Car Year: " + to_string(userInput.year), font, 24); //Doesn't print out ints correctly
+            printYearText.setFillColor(sf::Color::Black);
+            printYearRectangle.setPosition(100, 230);
+            printYearText.setPosition(printYearRectangle.getPosition().x + 10, printYearRectangle.getPosition().y + 10);
+            window.draw(printYearRectangle);
+            window.draw(printYearText);*/
 
 
         }

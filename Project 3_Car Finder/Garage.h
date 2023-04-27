@@ -8,10 +8,12 @@ using namespace std;
 class Garage {
 	string make, model, tempString;
 	int id, price, mileage, year;
+	void swap(Cars& a, Cars& b);
+	int binarySearch(int l, int r, int key, string sortingChoice);
 public:
     vector<Cars> garage;
 	Garage(ifstream& file, string make, string model);
-    void swap(Cars& a, Cars& b);
+	void removeElements(int threshold, string sortingChoice);
 	void mergeSort(vector<Cars>& arr, int left, int right, string sortingChoice);
 	void merge(vector<Cars>& arr, int left, int mid, int right, string sortingChoice);
     int partition(vector<Cars> map_garage, int start, int end, string sortingChoice);
