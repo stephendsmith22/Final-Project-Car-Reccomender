@@ -32,8 +32,10 @@ struct userInput {
 
 int main() {
     userInput userInput;
-    Cars carA("Ford", "Mustang", 7500, 84430, 1988), carB("Jaguar", "XJS", 8750, 55000, 1995);
-    Cars tempCar = carA;
+    ifstream file("used_car_sales_csv.csv");
+    Garage g(file, "Ford", "Mustang");
+    g.quickSort(g.garage, 0, g.size() - 1, "price");
+
 
     sf::RenderWindow window(sf::VideoMode(800, 500), "Car determiner 3,000");
     //window.setFramerateLimit(60);
