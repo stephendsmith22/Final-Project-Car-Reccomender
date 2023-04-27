@@ -29,5 +29,7 @@ Garage::Garage(ifstream file) {
 		year = stoi(tempString);
 		//scrap the rest
 		getline(file, tempString);
+		Cars tempCar(id, make, price, mileage, year);
+		garage.push_back(tempCar);
 	}
 }

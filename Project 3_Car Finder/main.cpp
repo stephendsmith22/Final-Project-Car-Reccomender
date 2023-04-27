@@ -1,8 +1,9 @@
 #include <iostream>
-
 #include <SFML/Graphics.hpp>
+#include <fstream>
 #include <sstream>
 #include "Cars.h"
+#include "Garage.h"
 
 using namespace std;
 
@@ -31,7 +32,11 @@ struct userInput {
 int main() {
 
     userInput userInput;
-    
+    ifstream file("used_car_sales_csv.csv");
+    if (file.is_open())
+        cout << "We're open";
+    //Garage g(file);
+
     sf::RenderWindow window(sf::VideoMode(800, 500), "Car determiner 3,000");
     //window.setFramerateLimit(60);
 
@@ -473,52 +478,6 @@ int main() {
     std::cout << "Max Price = " << userInput.maxPrice << std::endl;
     std::cout << "Max Mileage = " << userInput.mileage << std::endl;
     std::cout << "Car year = " << userInput.year << std::endl;
-
-
-    std::vector<fileStruct> readCars;
-
-    fileStruct a;
-    a.id = 1;
-    a.price = 1000;
-    a.make = "Ford";
-    a.model = "F-150";
-    a.mileage = 10;
-    a.year = 2010;
-
-    fileStruct b;
-    b.id = 2;
-    b.price = 2000;
-    b.make = "Ford";
-    b.model = "F-150";
-    b.mileage = 10;
-    b.year = 2010;
-
-    readCars.push_back(a);
-    readCars.push_back(b);
-
-
-    std::vector<fileStruct> matchingCars;
-    for (auto& i : readCars) {
-
-        if (i.make != userInput.make || i.model != userInput.model || i.year != userInput.year ||
-            i.price > userInput.maxPrice || i.mileage > userInput.mileage) { // Values don't match, dont keep this car
-
-
-            std::cout << "Fail" << std::endl;
-            continue;
-        }
-        else { // Values match keep car
-
-            std::cout << "Pass" << std::endl;
-            matchingCars.push_back(i);
-        }
-
-    }
-
-    for (auto i : matchingCars) {
-
-        std::cout << i.id << std::endl;
-    }
 
 
     //==========Merge Sort==========
