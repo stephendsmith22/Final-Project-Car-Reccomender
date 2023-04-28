@@ -53,7 +53,7 @@ void Garage::removeElements(int threshold, string sortingChoice){
 	if (sortingChoice == "price") {
 		int index = 0;
 		vector<Cars> tempCars;
-		while (garage[index].getPrice() <= threshold) {
+		while (garage[index].getPrice() <= threshold && index < garage.size()) {
 			tempCars.push_back(garage[index]);
 			index++;
 		}
@@ -62,7 +62,7 @@ void Garage::removeElements(int threshold, string sortingChoice){
 	else if (sortingChoice == "mileage") {
 		int index = 0;
 		vector<Cars> tempCars;
-		while (garage[index].getMileage() <= threshold) {
+		while (garage[index].getMileage() <= threshold && index < garage.size()) {
 			tempCars.push_back(garage[index]);
 			index++;
 		}
@@ -71,7 +71,7 @@ void Garage::removeElements(int threshold, string sortingChoice){
 	else if (sortingChoice == "year") {
 		int index = garage.size() - 1;
 		vector<Cars> tempCars;
-		while (garage[index].getYear() >= threshold) {
+		while (garage[index].getYear() >= threshold && index > 0) {
 			tempCars.push_back(garage[index]);
 			index--;
 		}
