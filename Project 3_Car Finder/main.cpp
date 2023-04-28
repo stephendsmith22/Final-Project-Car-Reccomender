@@ -335,14 +335,18 @@ int main() {
             ifstream file("used_car_sales_csv.csv");
             //create our garage object which will create a vector of cars which will be sorted
             Garage g(file, userInput.make, userInput.model);
-            
+            vector<Cars> storeGarage = g.garage;
+
             //=============Merge Sort==============
+            g.mergeSort(g.garage, 0, g.garage.size() - 1, "price");
+            //remove all elements that are not under the inputted price
+            g.removeElements(userInput.maxPrice, "price");
+            g.mergeSort(g.garage, 0, g.garage.size() - 1, "mileage");
+            g.removeElements(userInput.mileage, "mileage");
+            g.mergeSort(g.garage, 0, g.garage.size() - 1, "year");
+            g.removeElements(userInput.year, "year");
 
-
-
-
-
-
+            g.garage = storeGarage;
             //=============Quick Sort===============
             g.quickSort(g.garage, 0, g.garage.size() - 1, "price");
             //remove all elements that are not under the inputted price
@@ -351,7 +355,8 @@ int main() {
             g.removeElements(userInput.mileage, "mileage");
             g.quickSort(g.garage, 0, g.garage.size() - 1, "year");
             g.removeElements(userInput.year, "year");
-
+            //if the number of cars left is greater than 10, just output the first 10
+            //if it is 0, tell user we could not find any cars that matched their search
 
             window.clear(sf::Color::White);
 
