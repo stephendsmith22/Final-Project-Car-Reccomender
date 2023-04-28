@@ -353,10 +353,6 @@ int main() {
             g.removeElements(userInput.year, "year");
 
 
-
-
-
-
             window.clear(sf::Color::White);
 
             //Search through dataset for cars with correct input
