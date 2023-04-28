@@ -207,9 +207,10 @@ void Garage::merge(vector<Cars>& arr, int left, int mid, int right, string sorti
 	R.reserve(n2);
 
 	for (int i = 0; i < n1; i++)
-		L[i] = garage[left + i];
+		L.push_back(garage.at(left + i));
+
 	for (int j = 0; j < n2; j++)
-		R[j] = garage[mid + 1 + j];
+		R.push_back(garage.at(mid + 1 + j));
 
 	int i = 0, j = 0, k = left;
 	while (i < n1 && j < n2) {
@@ -257,16 +258,19 @@ void Garage::merge(vector<Cars>& arr, int left, int mid, int right, string sorti
 		k++;
 	}
 
-
 }
 
 
 void Garage::mergeSort(vector<Cars>& arr, int left, int right, string sortingChoice) {
 
 	if (left < right) {
+
+		//m is the point where the array is divided into two subarrays
 		int mid = left + (right - left) / 2;
 		mergeSort(garage, left, mid, sortingChoice);
 		mergeSort(garage, mid + 1, right, sortingChoice);
+
+		//Merge the sorted subarrays
 		merge(garage, left, mid, right, sortingChoice);
 	}
 }
