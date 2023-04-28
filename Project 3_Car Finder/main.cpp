@@ -35,7 +35,7 @@ int main() {
     ifstream file("used_car_sales_csv.csv");
 
 
-    sf::RenderWindow window(sf::VideoMode(800, 500), "Car determiner 3,000");
+    sf::RenderWindow window(sf::VideoMode(1000, 500), "Car determiner 3,000");
     //window.setFramerateLimit(60);
 
     //Font
@@ -361,92 +361,83 @@ int main() {
 
             window.clear(sf::Color::White);
 
-            //Search through dataset for cars with correct input
-            //fstream file("used_car_sales_csv.csv");
-            //Garage g(file, make, model);
-
-            //==========Print car make==========
-            sf::RectangleShape printCarMakeRectangle(sf::Vector2f(200, 50));
-            printCarMakeRectangle.setFillColor(sf::Color::White);
-
-            //text for car make
-            sf::Text printCarMakeText("Car Make: " + userInput.make, font, 24);
-            printCarMakeText.setFillColor(sf::Color::Black);
-
-            //Draw car make output
-            printCarMakeRectangle.setPosition(50, 30);
-            printCarMakeText.setPosition(printCarMakeRectangle.getPosition().x + 10, printCarMakeRectangle.getPosition().y + 10);
-            window.draw(printCarMakeRectangle);
-            window.draw(printCarMakeText);
+            //==========Top Ten cars==========
+            sf::RectangleShape topTenCarsRectangle(sf::Vector2f(200, 50));
+            topTenCarsRectangle.setFillColor(sf::Color::White);
+            //text for top 10 cars
+            sf::Text topTenCarsText("Top 5 Overall Cars", font, 36);
+            topTenCarsText.setFillColor(sf::Color::Blue);
+            //Draw Top 10 cars output
+            topTenCarsRectangle.setPosition(250, 20);
+            topTenCarsText.setPosition(topTenCarsRectangle.getPosition().x + 10, topTenCarsRectangle.getPosition().y + 10);
+            window.draw(topTenCarsRectangle);
+            window.draw(topTenCarsText);
 
 
-            //==========Print car model==========
-            sf::RectangleShape printCarModelRectangle(sf::Vector2f(200, 50));
-            printCarModelRectangle.setFillColor(sf::Color::White);
+            //==========Print car 1==========
+            sf::RectangleShape car1(sf::Vector2f(200, 50));
+            car1.setFillColor(sf::Color::White);
+            //text for car1
+            string car1String = "Make: " + g.garage[0].getMake() + ", Model: " + g.garage[0].getModel() + ", Price: " + to_string(g.garage[0].getPrice()) + ", Mileage: " + to_string(g.garage[0].getMileage()) + ", Year: " + to_string(g.garage[0].getYear());
+            sf::Text car1Text("#1: " + car1String, font, 24);
+            car1Text.setFillColor(sf::Color::Black);
+            //Draw car1 output
+            car1.setPosition(30, 70);
+            car1Text.setPosition(car1.getPosition().x + 10, car1.getPosition().y + 10);
+            window.draw(car1);
+            window.draw(car1Text);
 
-            //text for car model
-            sf::Text printCarModelText("Car Model: " + userInput.model, font, 24);
-            printCarModelText.setFillColor(sf::Color::Black);
+            //==========Print car 2==========
+            sf::RectangleShape car2(sf::Vector2f(200, 50));
+            car2.setFillColor(sf::Color::White);
+            //text for car2
+            string car2String = "Make: " + g.garage[1].getMake() + ", Model: " + g.garage[1].getModel() + ", Price: " + to_string(g.garage[1].getPrice()) + ", Mileage: " + to_string(g.garage[1].getMileage()) + ", Year: " + to_string(g.garage[1].getYear());
+            sf::Text car2Text("#2: " + car2String, font, 24);
+            car2Text.setFillColor(sf::Color::Black);
+            //Draw car2 output
+            car2.setPosition(30, 120);
+            car2Text.setPosition(car2.getPosition().x + 10, car2.getPosition().y + 10);
+            window.draw(car2);
+            window.draw(car2Text);
 
-            //Draw car model output
-            printCarModelRectangle.setPosition(50, 80);
-            printCarModelText.setPosition(printCarModelRectangle.getPosition().x + 10, printCarModelRectangle.getPosition().y + 10);
-            window.draw(printCarModelRectangle);
-            window.draw(printCarModelText);
+            //==========Print car 3==========
+            sf::RectangleShape car3(sf::Vector2f(200, 50));
+            car3.setFillColor(sf::Color::White);
+            //text for car3
+            string car3String = "Make: " + g.garage[2].getMake() + ", Model: " + g.garage[2].getModel() + ", Price: " + to_string(g.garage[2].getPrice()) + ", Mileage: " + to_string(g.garage[2].getMileage()) + ", Year: " + to_string(g.garage[2].getYear());
+            sf::Text car3Text("#3: " + car3String, font, 24);
+            car3Text.setFillColor(sf::Color::Black);
+            //Draw car3 output
+            car3.setPosition(30, 170);
+            car3Text.setPosition(car3.getPosition().x + 10, car3.getPosition().y + 10);
+            window.draw(car3);
+            window.draw(car3Text);
 
-            //==========Print max price==========
-            sf::RectangleShape printMaxPriceRectangle(sf::Vector2f(200, 50));
-            printMaxPriceRectangle.setFillColor(sf::Color::White);
+            //==========Print car 4==========
+            sf::RectangleShape car4(sf::Vector2f(200, 50));
+            car4.setFillColor(sf::Color::White);
+            //text for car4
+            string car4String = "Make: " + g.garage[3].getMake() + ", Model: " + g.garage[3].getModel() + ", Price: " + to_string(g.garage[3].getPrice()) + ", Mileage: " + to_string(g.garage[3].getMileage()) + ", Year: " + to_string(g.garage[3].getYear());
+            sf::Text car4Text("#4: " + car4String, font, 24);
+            car4Text.setFillColor(sf::Color::Black);
+            //Draw car4 output
+            car4.setPosition(30, 220);
+            car4Text.setPosition(car4.getPosition().x + 10, car4.getPosition().y + 10);
+            window.draw(car4);
+            window.draw(car4Text);
 
-            //text for max price
-            sf::Text printMaxPriceText("Maximum Price: " + to_string(userInput.maxPrice), font, 24); //Doesn't print out ints correctly
-            printMaxPriceText.setFillColor(sf::Color::Black);
-
-            //Draw max price output
-            printMaxPriceRectangle.setPosition(50, 130);
-            printMaxPriceText.setPosition(printMaxPriceRectangle.getPosition().x + 10, printMaxPriceRectangle.getPosition().y + 10);
-            window.draw(printMaxPriceRectangle);
-            window.draw(printMaxPriceText);
-
-            //==========Print max mileage==========
-            sf::RectangleShape printMaxMileageRectangle(sf::Vector2f(200, 50));
-            printMaxMileageRectangle.setFillColor(sf::Color::White);
-
-            //text for max mileage
-            sf::Text printMaxMileageText("Maximum Mileage: " + to_string(userInput.mileage), font, 24); //Doesn't print out ints correctly
-            printMaxMileageText.setFillColor(sf::Color::Black);
-
-            //Draw max mileage output
-            printMaxMileageRectangle.setPosition(50, 180);
-            printMaxMileageText.setPosition(printMaxMileageRectangle.getPosition().x + 10, printMaxMileageRectangle.getPosition().y + 10);
-            window.draw(printMaxMileageRectangle);
-            window.draw(printMaxMileageText);
-
-
-            //==========Print year==========
-            sf::RectangleShape printYearRectangle(sf::Vector2f(200, 50));
-            printYearRectangle.setFillColor(sf::Color::White);
-
-            //text for year
-            sf::Text printYearText("Car Year: " + to_string(userInput.year), font, 24); //Doesn't print out ints correctly
-            printYearText.setFillColor(sf::Color::Black);
-
-            //Draw year output
-            printYearRectangle.setPosition(50, 230);
-            printYearText.setPosition(printYearRectangle.getPosition().x + 10, printYearRectangle.getPosition().y + 10);
-            window.draw(printYearRectangle);
-            window.draw(printYearText);
-            
-
-            //Display all cars that would satisfy the requirements given by the user
-
-            /*sf::Text printYearText("Car Year: " + to_string(userInput.year), font, 24); //Doesn't print out ints correctly
-            printYearText.setFillColor(sf::Color::Black);
-            printYearRectangle.setPosition(100, 230);
-            printYearText.setPosition(printYearRectangle.getPosition().x + 10, printYearRectangle.getPosition().y + 10);
-            window.draw(printYearRectangle);
-            window.draw(printYearText);*/
-
+            //==========Print car 5==========
+            sf::RectangleShape car5(sf::Vector2f(200, 50));
+            car5.setFillColor(sf::Color::White);
+            //text for car5
+            string car5String = "Make: " + g.garage[4].getMake() + ", Model: " + g.garage[4].getModel() + ", Price: " + to_string(g.garage[4].getPrice()) + ", Mileage: " + to_string(g.garage[4].getMileage()) + ", Year: " + to_string(g.garage[4].getYear());
+            sf::Text car5Text("#5: " + car5String, font, 24);
+            car5Text.setFillColor(sf::Color::Black);
+            //Draw car5 output
+            car5.setPosition(30, 270);
+            car5Text.setPosition(car5.getPosition().x + 10, car5.getPosition().y + 10);
+            window.draw(car5);
+            window.draw(car5Text);
 
         }
         else { //Search is not clicked, keep getting inputs
