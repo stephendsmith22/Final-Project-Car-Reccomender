@@ -343,7 +343,7 @@ int main() {
                 auto begin = std::chrono::high_resolution_clock::now();
 
                 //=============Merge Sort==============
-                /*
+              
                 g.mergeSort(g.garage, 0, g.garage.size() - 1, "price");
                 //remove all elements that are not under the inputted price
                 g.removeElements(userInput.maxPrice, "price");
@@ -351,8 +351,8 @@ int main() {
                 g.removeElements(userInput.mileage, "mileage");
                 g.mergeSort(g.garage, 0, g.garage.size() - 1, "year");
                 g.removeElements(userInput.year, "year");
-                */
-
+                
+                /*
                 //=============Quick Sort===============
                 g.quickSort(g.garage, 0, g.garage.size() - 1, "price");
                 //remove all elements that are not under the inputted price
@@ -362,7 +362,7 @@ int main() {
                 g.quickSort(g.garage, 0, g.garage.size() - 1, "year");
                 g.removeElements(userInput.year, "year");
 
-
+                */
                 auto end = std::chrono::high_resolution_clock::now();
                 auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin);
                 cout << "Time Taken for algorithm to complete: " << elapsed.count() << " nanoseconds" << endl;
@@ -513,25 +513,6 @@ int main() {
         window.display();
 
     }
-
-
-
-
-
-    std::cout << "Car Make = " << userInput.make << std::endl;
-    std::cout << "Car model = " << userInput.model << std::endl;
-    std::cout << "Max Price = " << userInput.maxPrice << std::endl;
-    std::cout << "Max Mileage = " << userInput.mileage << std::endl;
-    std::cout << "Car year = " << userInput.year << std::endl;
-
-
-    //==========Merge Sort==========
-
-
-
-
-
-    //==========Quick Sort==========
 
     return 0;
 }
