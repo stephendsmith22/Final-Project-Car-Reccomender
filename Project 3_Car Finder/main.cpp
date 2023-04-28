@@ -354,10 +354,10 @@ int main() {
             g.removeElements(userInput.mileage, "mileage");
             g.quickSort(g.garage, 0, g.garage.size() - 1, "year");
             g.removeElements(userInput.year, "year");
-            //if the number of cars left is greater than 10, just output the first 10
+            //if the number of cars left is greater than 5, just output the top 5
             //if it is 0, tell user we could not find any cars that matched their search
-            if (g.garage.size() > 10)
-                g.garage.erase(g.garage.begin() + 10, g.garage.end());
+            if (g.garage.size() > 5)
+                g.garage.erase(g.garage.begin() + 5, g.garage.end());
 
             window.clear(sf::Color::White);
 
