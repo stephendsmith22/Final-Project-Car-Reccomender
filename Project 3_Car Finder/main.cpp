@@ -3,6 +3,7 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
+#include <chrono>
 #include "Cars.h"
 #include "Garage.h"
 
@@ -33,7 +34,7 @@ struct userInput {
 int main() {
     userInput userInput;
     ifstream file("used_car_sales_csv.csv");
-
+    bool setTimer = false;
 
     sf::RenderWindow window(sf::VideoMode(1000, 500), "Car determiner 3,000");
     //window.setFramerateLimit(60);
@@ -334,30 +335,44 @@ int main() {
             ifstream file("used_car_sales_csv.csv");
             //create our garage object which will create a vector of cars which will be sorted
             Garage g(file, userInput.make, userInput.model);
-            vector<Cars> storeGarage = g.garage;
 
-            //=============Merge Sort==============
-            /*g.mergeSort(g.garage, 0, g.garage.size() - 1, "price");
-            //remove all elements that are not under the inputted price
-            g.removeElements(userInput.maxPrice, "price");
-            g.mergeSort(g.garage, 0, g.garage.size() - 1, "mileage");
-            g.removeElements(userInput.mileage, "mileage");
-            g.mergeSort(g.garage, 0, g.garage.size() - 1, "year");
-            g.removeElements(userInput.year, "year");*/
+            // Start measuring time
+            if (setTimer == false) {
+                setTimer = true;
 
-            g.garage = storeGarage;
-            //=============Quick Sort===============
-            g.quickSort(g.garage, 0, g.garage.size() - 1, "price");
-            //remove all elements that are not under the inputted price
-            g.removeElements(userInput.maxPrice, "price");
-            g.quickSort(g.garage, 0, g.garage.size() - 1, "mileage");
-            g.removeElements(userInput.mileage, "mileage");
-            g.quickSort(g.garage, 0, g.garage.size() - 1, "year");
-            g.removeElements(userInput.year, "year");
-            //if the number of cars left is greater than 10, just output the first 10
-            //if it is 0, tell user we could not find any cars that matched their search
-            if (g.garage.size() > 10)
-                g.garage.erase(g.garage.begin() + 10, g.garage.end());
+                auto begin = std::chrono::high_resolution_clock::now();
+
+                //=============Merge Sort==============
+                /*
+                g.mergeSort(g.garage, 0, g.garage.size() - 1, "price");
+                //remove all elements that are not under the inputted price
+                g.removeElements(userInput.maxPrice, "price");
+                g.mergeSort(g.garage, 0, g.garage.size() - 1, "mileage");
+                g.removeElements(userInput.mileage, "mileage");
+                g.mergeSort(g.garage, 0, g.garage.size() - 1, "year");
+                g.removeElements(userInput.year, "year");
+                */
+
+                //=============Quick Sort===============
+                g.quickSort(g.garage, 0, g.garage.size() - 1, "price");
+                //remove all elements that are not under the inputted price
+                g.removeElements(userInput.maxPrice, "price");
+                g.quickSort(g.garage, 0, g.garage.size() - 1, "mileage");
+                g.removeElements(userInput.mileage, "mileage");
+                g.quickSort(g.garage, 0, g.garage.size() - 1, "year");
+                g.removeElements(userInput.year, "year");
+
+
+                auto end = std::chrono::high_resolution_clock::now();
+                auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin);
+                cout << "Time Taken for algorithm to complete: " << elapsed.count() << " nanoseconds" << endl;
+
+                //if the number of cars left is greater than 10, just output the first 10
+                //if it is 0, tell user we could not find any cars that matched their search
+                if (g.garage.size() > 10)
+                    g.garage.erase(g.garage.begin() + 10, g.garage.end());
+            }
+           
 
             window.clear(sf::Color::White);
 
